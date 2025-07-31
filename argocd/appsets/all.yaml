@@ -20,18 +20,18 @@ spec:
         - path: values/**/config.yaml
   template:
     metadata:
-      name: '{{ .path.basename | replace "_" "--"}}'
+      name: anyname
       labels:
-        auto  : "{{.autoupdate.enabled}}"
-        paused: "{{.autoupdate.paused}}"
-      annotations:
-        argocd-image-updater.argoproj.io/image-list: app-01=registry.gitlab.com/argocd9135324/app-01:~0.0.1
-        argocd-image-updater.argoproj.io/write-back-method: git:secret:argo-cd/repo-3701229305
-        argocd-image-updater.argoproj.io/write-back-target: helmvalues:/values/01-image/{{.image}}.yaml
-        argocd-image-updater.argoproj.io/app-01.ignore-tags: '{{- if eq ( .autoupdate.enabled | toString ) "true" }}{{- else }}*{{- end }}'
-        argocd-image-updater.argoproj.io/app-01.update-strategy: semver
-        argocd-image-updater.argoproj.io/app-01.helm.image-name: image.repository
-        argocd-image-updater.argoproj.io/app-01.helm.image-tag: image.tag
+        # auto  : "{{.autoupdate.enabled}}"
+        # paused: "{{.autoupdate.paused}}"
+      annotations: {}
+        # argocd-image-updater.argoproj.io/image-list: app-01=registry.gitlab.com/argocd9135324/app-01:~0.0.1
+        # argocd-image-updater.argoproj.io/write-back-method: git:secret:argo-cd/repo-3701229305
+        # argocd-image-updater.argoproj.io/write-back-target: helmvalues:/values/01-image/{{.image}}.yaml
+        # argocd-image-updater.argoproj.io/app-01.ignore-tags: '{{- if eq ( .autoupdate.enabled | toString ) "true" }}{{- else }}*{{- end }}'
+        # argocd-image-updater.argoproj.io/app-01.update-strategy: semver
+        # argocd-image-updater.argoproj.io/app-01.helm.image-name: image.repository
+        # argocd-image-updater.argoproj.io/app-01.helm.image-tag: image.tag
       finalizers:
         - resources-finalizer.argocd.argoproj.io
     spec:
@@ -43,16 +43,16 @@ spec:
           helm:
             valueFiles:
               - $values/values/00-common/values.yaml
-              - $values/values/01-image/{{ index (.str | split "_") "_0" }}.yaml
-              - $values/values/02-mode/{{ index (.str | split "_") "_1"  }}.yaml
-              - $values/values/03-region/{{ index (.str | split "_") "_2" }}.yaml
-              - $values/values/envs/{{ .path.basename }}/values.yaml
+              # - $values/values/01-image/{{ index (.str | split "_") "_0" }}.yaml
+              # - $values/values/02-mode/{{ index (.str | split "_") "_1"  }}.yaml
+              # - $values/values/03-region/{{ index (.str | split "_") "_2" }}.yaml
+              # - $values/values/envs/{{ .path.basename }}/values.yaml
         - repoURL: *repo
           ref    : values
           targetRevision: HEAD
       destination:
         server   : https://kubernetes.default.svc
-        namespace: '{{ .path.basename | replace "_" "--"}}'
+        namespace: any-namspace
       syncPolicy:
         syncOptions:
           - CreateNamespace=true
