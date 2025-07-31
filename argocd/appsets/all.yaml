@@ -20,8 +20,7 @@ spec:
         - path: values/**/config.yaml
   template:
     metadata:
-
-      name: dev-01-{{ .path.basename | replace "_" "--" }}
+      name: &id dev-01-{{ .path.basename | replace "_" "--" }}
       annotations: {}
         # argocd-image-updater.argoproj.io/image-list: app-01=registry.gitlab.com/argocd9135324/app-01:~0.0.1
         # argocd-image-updater.argoproj.io/write-back-method: git:secret:argo-cd/repo-3701229305
@@ -51,10 +50,10 @@ spec:
           targetRevision: HEAD
       destination:
         server   : https://kubernetes.default.svc
-        namespace: default
+        namespace: *id
       syncPolicy:
         syncOptions:
           - CreateNamespace=true
         automated:
-          prune: true
+          prune   : true
           selfHeal: true
