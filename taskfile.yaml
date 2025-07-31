@@ -54,5 +54,7 @@ tasks:
 
   push:
     cmds:
+    - git add .
+    - git commit -m "update"
     - git push gl main
     - git push gh main
