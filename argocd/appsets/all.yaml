@@ -20,7 +20,7 @@ spec:
         - path: values/**/config.yaml
   template:
     metadata:
-      name: argoapp-{{ .path.basename }}
+      name: argoapp-{{ .path.basename | replace "_" "--" }}
       labels:
         # auto  : "{{.autoupdate.enabled}}"
         # paused: "{{.autoupdate.paused}}"
