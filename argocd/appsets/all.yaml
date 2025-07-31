@@ -43,13 +43,13 @@ spec:
           targetRevision: HEAD
           helm:
             valueFiles:
-              - $values_src/values/00-common/values.yaml
-              - $values_src/values/01-image/{{ index (.path.basename | split "_") "_0" }}.yaml
-              - $values_src/values/02-resources/{{ index (.path.basename | split "_") "_1" }}.yaml
-              - $values_src/values/03-region/{{ index (.path.basename | split "_") "_2" }}.yaml
-              - $values_src/values/envs/{{ .path.basename }}/values.yaml
+              - $values/values/00-common/values.yaml
+              - $values/values/01-image/{{ index (.path.basename | split "_") "_0" }}.yaml
+              - $values/values/02-resources/{{ index (.path.basename | split "_") "_1" }}.yaml
+              - $values/values/03-region/{{ index (.path.basename | split "_") "_2" }}.yaml
+              - $values/values/envs/{{ .path.basename }}/values.yaml
         - repoURL: *repo
-          ref    : values_src
+          ref    : values
           targetRevision: HEAD
       destination:
         server   : https://kubernetes.default.svc
