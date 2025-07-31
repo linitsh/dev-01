@@ -1,5 +1,5 @@
 chart : 0.1.0
 
-auto-update: 
+autoupdate: 
   enabled : flase
   paused  : false
