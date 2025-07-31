@@ -1,0 +1,5 @@
+chart : 0.1.0
+
+autoupdate: 
+  enabled : true
+  paused  : false

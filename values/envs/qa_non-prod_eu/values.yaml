@@ -1,4 +1,4 @@
 # Environment settings
 
 podAnnotations:
-  environment: qa
+  environment: qa-non-prod-eu
