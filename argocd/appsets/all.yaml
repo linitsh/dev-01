@@ -19,10 +19,9 @@ spec:
         files:
         - path: values/**/config.yaml
   template:
- 
     metadata:
       labels: 
-        dir: '{{ .path.basename }}'
+        dir : '{{ .path.basename }}'
         name: &valid-name '{{ .path.basename | replace "_" "--" }}'
         # auto  : "{{.autoupdate.enabled}}"
         # paused: "{{.autoupdate.paused}}"
@@ -47,7 +46,7 @@ spec:
           helm:
             valueFiles:
               - $values/values/00-common/values.yaml
-              # - $values/values/01-image/{{ index (.str | split "_") "_0" }}.yaml
+              - $values/values/01-image/{{ index (.path.basename | split "_") "_0" }}.yaml
               # - $values/values/02-mode/{{ index (.str | split "_") "_1"  }}.yaml
               # - $values/values/03-region/{{ index (.str | split "_") "_2" }}.yaml
               # - $values/values/envs/{{ .path.basename }}/values.yaml

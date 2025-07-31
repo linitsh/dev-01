@@ -1,3 +1,6 @@
-image:
-  repository: "registry.gitlab.com/argocd9135324/app-01"
-  tag: "0.0.8"
+# image:
+#   repository: "registry.gitlab.com/argocd9135324/app-01"
+#   tag: "0.0.8"
+
+podLabels:
+  image: qa
