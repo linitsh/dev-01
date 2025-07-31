@@ -1,0 +1,9 @@
+chart : 0.1.0
+auto  : true
+image : qa
+mode  : non-prod
+region: eu
+env:
+  folder: qa
+  file  : qa
+paused: false

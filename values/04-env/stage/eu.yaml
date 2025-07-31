@@ -1,0 +1,4 @@
+
+# Environment settings
+podAnnotations:
+  environment: stage-eu

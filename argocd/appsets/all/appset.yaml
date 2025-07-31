@@ -1,0 +1,60 @@
+apiVersion: argoproj.io/v1alpha1
+kind: ApplicationSet
+metadata:
+  name: set-dev-01
+  namespace: argo-cd
+  labels:
+    git: argocd
+spec:
+  goTemplate: true
+  goTemplateOptions:
+    - missingkey=error
+  syncPolicy:
+    applicationsSync: create-update
+  generators:
+    - git:
+        repoURL : &repo https://gitlab.com/argocd9135324/dev-01.git
+        revision: HEAD
+        requeueAfterSeconds: 30
+        files:
+        - path: configs/**/config.yaml
+  template:
+    metadata:
+      name: "{{.env.folder}}-{{.env.file}}"
+      labels:
+        auto: "{{.auto}}"
+      annotations:
+        argocd-image-updater.argoproj.io/image-list: app-01=registry.gitlab.com/argocd9135324/app-01:~0.0.1
+        argocd-image-updater.argoproj.io/write-back-method: git:secret:argo-cd/repo-3701229305
+        argocd-image-updater.argoproj.io/write-back-target: helmvalues:/values/01-version/{{.image}}.yaml
+        argocd-image-updater.argoproj.io/app-01.ignore-tags: '{{- if eq ( .auto | toString ) "true" }}{{- else }}*{{- end }}'
+        argocd-image-updater.argoproj.io/app-01.update-strategy: semver
+        argocd-image-updater.argoproj.io/app-01.helm.image-name: image.repository
+        argocd-image-updater.argoproj.io/app-01.helm.image-tag: image.tag
+      finalizers:
+        - resources-finalizer.argocd.argoproj.io
+    spec:
+      project: default
+      sources:
+        - repoURL: *repo
+          path   : chart
+          targetRevision: HEAD
+          helm:
+            valueFiles:
+              - $values/values/00-common/values.yaml
+              - $values/values/01-version/{{.image}}.yaml
+              - $values/values/02-mode/{{.mode}}.yaml
+              - $values/values/03-region/{{.region}}.yaml
+              - $values/values/04-env/{{.env.folder}}/{{.env.file}}.yaml
+        - repoURL: *repo
+          ref    : values
+          targetRevision: HEAD
+      destination:
+        server   : https://kubernetes.default.svc
+        namespace: "{{.env.folder}}-{{.env.file}}"
+      syncPolicy:
+        syncOptions:
+          - CreateNamespace=true
+        automated:
+          prune: true
+          selfHeal: true

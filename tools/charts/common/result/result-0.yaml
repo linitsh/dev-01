@@ -1,0 +1,311 @@
+---
+# Source: chart/templates/0.yaml
+kind: Namespace
+apiVersion: v1
+metadata:
+  name : helm-common-lib
+  names:
+    name   : chart
+    chart  : chart-0.1.0
+    fn     : test-chart
+    dep.fn : test-chart-redis
+    ns     : default
+    fns    : test-chart-default
+
+  labels.standard:
+    app.kubernetes.io/name: chart
+    helm.sh/chart: chart-0.1.0
+    app.kubernetes.io/instance: test-chart
+    app.kubernetes.io/managed-by: Helm
+    app.kubernetes.io/version: "1.16.0"
+    
+  labels.matchLabels:
+    app.kubernetes.io/name: chart
+    app.kubernetes.io/instance: test-chart
+    
+  resources.preset:
+    limits:
+      cpu: 150m
+      ephemeral-storage: 2Gi
+      memory: 192Mi
+    requests:
+      cpu: 100m
+      ephemeral-storage: 50Mi
+      memory: 128Mi
+  
+  affinities.nodes.soft:
+    preferredDuringSchedulingIgnoredDuringExecution:
+      - preference:
+          matchExpressions:
+            - key: FOO
+              operator: In
+              values:
+                - "BAR"
+                - "BAZ"
+        weight: 1
+  
+  affinities.nodes.hard:
+    requiredDuringSchedulingIgnoredDuringExecution:
+      nodeSelectorTerms:
+        - matchExpressions:
+            - key: FOO
+              operator: In
+              values:
+                - "BAR"
+                - "BAZ"
+  
+  affinities.nodes:
+    preferredDuringSchedulingIgnoredDuringExecution:
+      - preference:
+          matchExpressions:
+            - key: FOO
+              operator: In
+              values:
+                - "BAR"
+                - "BAZ"
+        weight: 1
+  
+  affinities.topologyKey:
+    BAR: value
+
+  # affinities.pods.soft:
+  
+  
+  # affinities.pods.hard:
+  
+  
+  # affinities.pods:
+  
+
+  capabilities:
+    kubeVersion: v1.33.0
+    apiVersions.has: # 
+    policy.apiVersion: policy/v1
+    networkPolicy.apiVersion: networking.k8s.io/v1
+    job.apiVersion: batch/v1
+    cronjob.apiVersion: batch/v1
+    daemonset.apiVersion: apps/v1
+    deployment.apiVersion: apps/v1
+    statefulset.apiVersion: apps/v1
+    ingress.apiVersion: networking.k8s.io/v1
+    rbac.apiVersion: rbac.authorization.k8s.io/v1
+    crd.apiVersion: apiextensions.k8s.io/v1
+    apiService.apiVersion: apiregistration.k8s.io/v1
+    hpa.apiVersion: # 
+    vpa.apiVersion: # 
+    psp.supported:  # false
+    admissionConfiguration.supported: true # false
+    admissionConfiguration.apiVersion: apiserver.config.k8s.io/v1 # false
+    podSecurityConfiguration.apiVersion: pod-security.admission.config.k8s.io/v1 # false
+    supportsHelmVersion: true # false
+  
+  compatibility:
+    isOpenshift: # false
+    renderSecurityContext: # not worked
+      
+
+  images:
+    image: nginx:1.16.0
+    pullSecrets:  # not work
+    renderPullSecrets:  # not work
+    version: 1.16.0
+
+  ingress:
+    backend:
+      service:
+        name: backendName
+        port:
+          name: backendPort
+    supportsPathType: true
+    supportsIngressClassname: true
+    certManagerRequest:  # false ?
+  
+  storage:
+    class:  # nw
+
+  secrets:
+    # if empty then generate else value
+    name: test-chart-mySuffix
+    key: keyName
+    passwords.manage: "STRicHNVb284dg=="
+    lookup:  # ?
+    exists:  # ?
+
+  tpl.values:
+    render1: a
+    render2:  #$app?
+    merge:
+      app: a
+      cpp: c
+    merge-overwrite:
+      app: b
+      cpp: c
+
+  utils:
+    secret.getvalue: export SECRET_VALUE_FIELD=$(kubectl get secret --namespace "default" secret-name -o jsonpath="{.data.secret-value-field}" | base64 -d)
+    fieldToEnvVar:  # nw num of params
+    getValueFromKey: somekey
+    getKeyFromList: lib.value1 # ??
+    checksumTemplate: a13835080eaec8c309352a80b1627eb9a116625b86d9ee9d927b1a539eb338cf
+
+  warnings:
+    # if image repo has "bitnami/"
+    warnings.rollingTag: |
+      
+      WARNING: Rolling tag detected (bitnami/nginx:1.16.0), please note that it is strongly recommended to avoid using rolling tags in a production environment.
+      +info https://techdocs.broadcom.com/us/en/vmware-tanzu/application-catalog/tanzu-application-catalog/services/tac-doc/apps-tutorials-understand-rolling-tags-containers-index.html # ?
+    modifiedImages: |
+      
+      
+      ⚠ SECURITY WARNING: Original containers have been substituted. This Helm chart was designed, tested, and validated on multiple platforms using a specific set of Bitnami and Tanzu Application Catalog containers. Substituting other containers is likely to cause degraded security and performance, broken chart features, and missing environment variables.
+      
+      Substituted images detected:
+        - 233.io2/bitnami/nginx:1.16.0
+    resources: |
+      
+      
+      WARNING: There are "resources" sections in the chart not set. Using "resourcesPreset" is not recommended for production. For production installations, please set the following values according to your workload needs:
+        - lib.csiProvider.provider.resources
+        - lib.server.resources
+      +info https://kubernetes.io/docs/concepts/configuration/manage-resources-containers/
+
+  validations:
+    values.single.empty: |
+      
+          'lib.password' must not be empty, please add '--set lib.password=$my-value' to the command.
+    values.multiple.empty: |
+      
+          'lib.valid.value2' must not be empty, please add '--set lib.valid.value2=$my-value' to the command.
+
+  errors:
+    # if Release.IsUpgrade and errors then fail
+    upgrade.passwords.empty: |
+      
+
+    # if image.registry: "docker.io" ok if "docker.io2" bad
+    insecureImages: |
+      
+      # not work empty (and to complicated)
+---
+# Source: chart/templates/configs/cfg-files.yaml
+kind: ConfigMap
+apiVersion: v1
+metadata:
+  name: test-chart
+  namespace: default
+data:
+  50x.html: |
+    # inserted by --set-file
+    
+  default.conf: |
+    # inserted by --set-file
+    
+  index.html: |
+    # inserted by --set-file
+---
+# Source: chart/templates/network/service.yaml
+apiVersion: v1
+kind: Service
+metadata:
+  name: test-chart
+  labels:
+    helm.sh/chart: chart-0.1.0
+    app.kubernetes.io/name: chart
+    app.kubernetes.io/instance: test-chart
+    app.kubernetes.io/version: "1.16.0"
+    app.kubernetes.io/managed-by: Helm
+spec:
+  type: ClusterIP
+  ports:
+    - port: 80
+      targetPort: http
+      protocol: TCP
+      name: http
+  selector:
+    app.kubernetes.io/name: chart
+    app.kubernetes.io/instance: test-chart
+---
+# Source: chart/templates/workloads/deployment.yaml
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name  : test-chart
+  labels:
+    helm.sh/chart: chart-0.1.0
+    app.kubernetes.io/name: chart
+    app.kubernetes.io/instance: test-chart
+    app.kubernetes.io/version: "1.16.0"
+    app.kubernetes.io/managed-by: Helm
+spec:
+  
+
+  replicas: 1
+  
+
+  selector:
+    matchLabels:
+      app.kubernetes.io/name: chart
+      app.kubernetes.io/instance: test-chart
+
+  template:
+    metadata:
+
+      labels:
+        helm.sh/chart: chart-0.1.0
+        app.kubernetes.io/name: chart
+        app.kubernetes.io/instance: test-chart
+        app.kubernetes.io/version: "1.16.0"
+        app.kubernetes.io/managed-by: Helm
+
+    spec:
+
+      serviceAccountName: default
+      
+      containers:
+        - name: chart
+
+          image: "nginx:1.16.0"
+
+          imagePullPolicy: IfNotPresent
+
+          ports:
+            - name: http
+              containerPort: 80
+              protocol: TCP
+          livenessProbe:
+            httpGet:
+              path: /
+              port: http
+          readinessProbe:
+            httpGet:
+              path: /
+              port: http
+          resources:
+            limits: {}
+            requests: {}
+---
+# Source: chart/templates/security/secret.yaml
+apiVersion: secrets-store.csi.x-k8s.io/v1
+kind: SecretProviderClass
+metadata:
+  name: spc-test      # &spc.name -> dpl volumes
+spec:
+
+  provider  : vault   # accepted provider options: akeyless or azure or vault or gcp
+  parameters:         # provider-specific parameters
+    vaultAddress      : "http://vault.vault:8200"
+    vaultAuthMountPath: "test-cluster" # <-- vault.k8s auth path
+    roleName          : "test-role"    # <-- vault.auth.role
+    objects: |
+      - objectName: "test-pass-object-01"
+        secretPath: "test-kv2/data/test-secret"
+        secretKey : "test-password"
+  
+  
+  ### auto generate k8s secret
+  secretObjects:
+  - secretName: sec-spc-generated
+    type: Opaque
+    data:
+    - objectName: test-pass-object-01 # object ref
+      key       : test-password

@@ -1,0 +1,9 @@
+chart: 0.1.0
+auto: false
+image: stage
+mode: non-prod
+region: eu
+env:
+  folder: stage
+  file: eu
+paused: false

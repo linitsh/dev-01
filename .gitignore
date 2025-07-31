@@ -1,0 +1,11 @@
+.task
+.vscode
+.env
+
+chart/charts/*
+
+chart/Chart.lock
+
+!logs
+logs/*
+!logs/.gitkeep

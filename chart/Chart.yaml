@@ -1,0 +1,55 @@
+apiVersion : v2
+deprecated : false
+type       : application
+description: A Helm chart for Kubernetes
+
+name       : chart
+
+annotations:
+  example: example-annotation
+
+# keywords about this project
+keywords:
+- chart
+- x
+
+# URLs to source code for this project
+sources:
+- https://x.com/
+
+# A URL to an SVG or PNG
+icon: https://gitlab.com/gitlab-com/gitlab-artwork/raw/master/logo/logo-square.png
+
+# projects home page
+home: https://x.com/
+
+maintainers:
+- email: x@x.com
+  name : x
+  url  : https://x.com
+
+
+kubeVersion: ">= 1.32.0"
+version    : 0.1.0
+appVersion : "1.16.0"
+
+
+dependencies:
+- name      : redis
+  # (optional) Alias to be used for the chart. Useful when you have to add the same chart multiple times
+  alias     : redis
+  version   : 21.2.6
+  repository: https://charts.bitnami.com/bitnami
+  # (optional) A yaml path that resolves to a boolean, used for enabling/disabling charts (e.g. subchart1.enabled )
+  condition : redis.enabled
+  # Tags can be used to group charts for enabling/disabling together
+  tags      :
+  - subchart
+  - external
+  # ImportValues holds the mapping of source values to parent key to be imported. Each item can be a string or pair of child/parent sublist items.
+  # import-values:
+  # - redis
+
+# - name      : common
+#   repository: oci://registry-1.docker.io/bitnamicharts
+#   version   : 2.30.0

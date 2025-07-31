@@ -1,0 +1,58 @@
+# yaml-language-server: $schema=https://json.schemastore.org/taskfile.json
+version : '3'
+interval: 500ms
+dotenv  : [.env]
+env     :
+  CWD   : '{{ .ROOT_DIR }}'
+includes:
+  tools:
+    taskfile: tools
+    flatten : false
+
+tasks:
+
+  template:
+    aliases: [tpl, t]
+    silent : true
+    vars:
+      RELEASE_NAME : test-chart
+      PATH_TO_CHART: chart
+      FLAGS        : '--debug' #'--debug'
+      FILES        : '--set-file cfg.index\\.html=files/index.html --set-file cfg.default\\.conf=files/default.conf --set-file cfg.50x\\.html=files/50x.html'
+    cmds:
+    - helm template {{ .RELEASE_NAME }} {{ .PATH_TO_CHART }} {{ .FLAGS }} {{ .FILES }} > logs/tpl.yaml 
+  
+  watch:
+    aliases: [w]
+    silent : true
+    watch  : true
+    sources:
+      - 'files/**/*.*'
+      - 'chart/templates/**/*.*'
+      - '**/chart/*.{yaml,json}'
+    cmds:
+    - task: template
+
+  pull-subcharts:
+    aliases: [ps]
+    silent : true
+    vars:
+      PATH_TO_CHART: chart
+    cmds:
+    - rm -rf {{ .PATH_TO_CHART }}/charts/*
+    - helm dependency update {{ .PATH_TO_CHART }}
+    - task: unizip-rm
+    
+  unzip-rm:
+    prompt  : unzip subcharts ?
+    dir     : '{{.TASKFILE_DIR}}/chart/charts'
+    internal: true
+    cmds:
+    - cat *.tgz | tar -xvzf  - -i 
+    - rm -rf     *.tgz
+
+
+  push:
+    cmds:
+    - git push gl main
+    - git push gh main
