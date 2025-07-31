@@ -10,10 +10,15 @@ replicaCount: 1
 #   # Overrides the image tag whose default is the chart appVersion.
 #   tag: ""
 
-image:
-  repository: "registry.gitlab.com/argocd9135324/app-01"
-  tag: "0.0.8"
 
+
+# This sets the container image more information can be found here: https://kubernetes.io/docs/concepts/containers/images/
+image:
+  repository: nginx
+  # This sets the pull policy for images.
+  pullPolicy: IfNotPresent
+  # Overrides the image tag whose default is the chart appVersion.
+  tag: ""
 
 # # This is for the secrets for pulling an image from a private repository more information can be found here: https://kubernetes.io/docs/tasks/configure-pod-container/pull-image-private-registry/
 # imagePullSecrets: []
