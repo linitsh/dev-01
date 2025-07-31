@@ -19,11 +19,13 @@ spec:
         files:
         - path: values/**/config.yaml
   template:
+  
     metadata:
-      name: argoapp-{{ .path.basename | replace "_" "--" }}
-      labels:
+      labels: 
+        name: '{{- $dir = .path.basename -}}'
         # auto  : "{{.autoupdate.enabled}}"
         # paused: "{{.autoupdate.paused}}"
+      name: argoapp-{{ $dir| replace "_" "--" }}
       annotations: {}
         # argocd-image-updater.argoproj.io/image-list: app-01=registry.gitlab.com/argocd9135324/app-01:~0.0.1
         # argocd-image-updater.argoproj.io/write-back-method: git:secret:argo-cd/repo-3701229305
