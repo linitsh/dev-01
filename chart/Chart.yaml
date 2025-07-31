@@ -3,7 +3,7 @@ deprecated : false
 type       : application
 description: A Helm chart for Kubernetes
 
-name       : chart
+name       : silver
 
 annotations:
   example: example-annotation
