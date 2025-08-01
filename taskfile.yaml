@@ -5,6 +5,11 @@ dotenv  : [.env]
 env     :
   CWD   : '{{ .ROOT_DIR }}'
 
+includes:
+  clin:
+    taskfile: tools/clin.yaml 
+
+
 tasks:
 
   template:

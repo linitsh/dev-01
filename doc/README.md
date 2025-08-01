@@ -10,4 +10,4 @@ categories: []
 - [TODO](TODO.md)
 - [WTF](wtf.md)
 - [links](links.md)
-- [chart](../chert/README.md)
+- [chart](../chart/README.md)

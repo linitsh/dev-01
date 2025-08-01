@@ -6,4 +6,4 @@ categories: []
 ---
 ### 
 
-- [docs](docs/README.md)
+- [docs](doc/README.md)

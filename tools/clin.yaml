@@ -1,0 +1,22 @@
+# yaml-language-server: $schema=https://json.schemastore.org/taskfile.json
+version: '3'
+tasks:
+
+  doc-values:
+    dir : '{{ .ROOT_DIR }}'
+    desc: ''
+    cmds:
+    - clin helm doc values -v chart/values.yaml -r chart/doc/auto/values.md -s chart/values.schema.json
+
+  doc-libs:
+    dir : '{{ .ROOT_DIR }}'
+    desc: ''
+    cmds:
+    - clin helm doc libs -l chart/templates/_  -r chart/doc/auto/libs.md
+
+  x:
+    desc: ''
+    cmds:
+    - task: doc-libs
+    - task: doc-values
+
