@@ -1,10 +1,10 @@
 ---
-title     : Lib
+title     : Libs
 tags      : []
 categories: []
 ---
 ---
-### Lib
+### Libs
 
 #### _.snip
 

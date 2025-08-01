@@ -4,21 +4,18 @@ interval: 500ms
 dotenv  : [.env]
 env     :
   CWD   : '{{ .ROOT_DIR }}'
-includes:
-  tools:
-    taskfile: tools
-    flatten : false
 
 tasks:
 
   template:
+    desc   : 'template'
     aliases: [tpl, t]
     silent : true
     vars:
       RELEASE_NAME : test-chart
       PATH_TO_CHART: chart
-      FLAGS        : '--debug' #'--debug'
-      FILES        : '--set-file cfg.index\\.html=files/index.html --set-file cfg.default\\.conf=files/default.conf --set-file cfg.50x\\.html=files/50x.html'
+      FLAGS        : '--debug'
+      FILES        : '--set-file cfg.index\\.html=chart/files/index.html --set-file cfg.default\\.conf=fchart/iles/default.conf --set-file cfg.50x\\.html=chart/files/50x.html'
     cmds:
     - helm template {{ .RELEASE_NAME }} {{ .PATH_TO_CHART }} {{ .FLAGS }} {{ .FILES }} > logs/tpl.yaml 
   
@@ -27,7 +24,7 @@ tasks:
     silent : true
     watch  : true
     sources:
-      - 'files/**/*.*'
+      - 'chart/files/**/*.*'
       - 'chart/templates/**/*.*'
       - '**/chart/*.{yaml,json}'
     cmds:
@@ -50,7 +47,6 @@ tasks:
     cmds:
     - cat *.tgz | tar -xvzf  - -i 
     - rm -rf     *.tgz
-
 
   push:
     cmds:

@@ -10,7 +10,7 @@ spec:
   
   source:
     repoURL: https://gitlab.com/argocd9135324/dev-01.git
-    path   : argocd/appsets
+    path   : argocd/appsets/all
     targetRevision: HEAD
 
   destination:
