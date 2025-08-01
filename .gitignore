@@ -1,7 +1,7 @@
 .task
 .vscode
 .env
-
+node_modules
 chart/charts/*
 
 chart/Chart.lock
