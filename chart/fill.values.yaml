@@ -23,13 +23,10 @@ global:
 Names:
   ## @extra Names.override `{ }`
   override:
-
     ## @param Names.override.name
     name     : ""
-
     ## @param Names.override.fullname
     fullname : ""
-
     ## @param Names.override.namespace
     namespace: ""
 
@@ -43,26 +40,115 @@ Deployment:
   ## @param Deployment.replicaCount
   replicaCount: 1
 
+
+  ## @section Deployment.Autoscaling - ``
+  Autoscaling:
+    ## @param Deployment.Autoscaling.enabled
+    enabled                        : false
+    ## @param Deployment.Autoscaling.minReplicas
+    minReplicas                    : 1
+    ## @param Deployment.Autoscaling.maxReplicas
+    maxReplicas                    : 100
+    ## @param Deployment.Autoscaling.targetCPUUtilizationPercentage
+    targetCPUUtilizationPercentage : 80
+    # targetMemoryUtilizationPercentage: 80
+    
+
   ## @section Deployment.Image - ``
   Image:
+    ## @param Deployment.Image.pullSecrets
+    pullSecrets: []
     ## @param Deployment.Image.repository
-    repository: nginx
+    repository : nginx
     ## @param Deployment.Image.pullPolicy
-    pullPolicy: IfNotPresent
+    pullPolicy : IfNotPresent
     ## @param Deployment.Image.tag
-    tag: ""
+    tag        : ""
   
+
+  ## @section Deployment.Pod - ``
+  Pod:
+    ## @param Deployment.Pod.annotations
+    annotations    : {}
+    ## @param Deployment.Pod.labels
+    labels         : {}
+    ## @param Deployment.Pod.securityContext
+    securityContext: {}
+      # fsGroup       : 2000
+
+
+  ## @section Deployment.Container - ``
+  Container:
+    ## @param Deployment.Container.securityContext
+    securityContext: {}
+      # capabilities:
+      #   drop:
+      #   - ALL
+      # readOnlyRootFilesystem: true
+      # runAsNonRoot: true
+      # runAsUser: 1000
+
+
+  ## @section Deployment.Probes - ``
+  Probes:
+    ## @extra Deployment.Probes.livenessProbe `{ }`
+    livenessProbe:
+      ## @extra Deployment.Probes.livenessProbe.httpGet `{ }`
+      httpGet:
+        ## @param Deployment.Probes.livenessProbe.httpGet.path
+        path: /
+        ## @param Deployment.Probes.livenessProbe.httpGet.port
+        port: http
+    ## @extra Deployment.Probes.readinessProbe `{ }`
+    readinessProbe:
+      ## @extra Deployment.Probes.readinessProbe.httpGet `{ }`
+      httpGet:
+        ## @param Deployment.Probes.readinessProbe.httpGet.path
+        path: /
+        ## @param Deployment.Probes.readinessProbe.httpGet.port
+        port: http
+
 
   ## @section Deployment.Resources - ``
   Resources:
-    # limits:
-    #   cpu: 100m
-    #   memory: 128Mi
-    # requests:
-    #   cpu: 100m
-    #   memory: 128Mi
-    ## @skip Deployment.Resources.x
-    x : x
+    ## @extra Deployment.Resources.limits `{ }`
+    limits:
+      ## @param Deployment.Resources.limits.cpu
+      cpu: 100m
+      ## @param Deployment.Resources.limits.memory
+      memory: 128Mi
+    ## @extra Deployment.Resources.requests `{ }`
+    requests:
+      ## @param Deployment.Resources.requests.cpu
+      cpu: 100m
+      ## @param Deployment.Resources.requests.memory
+      memory: 128Mi
+
+
+  ## @section Deployment.Scheduling - ``
+  Scheduling:
+    ## @param Deployment.Scheduling.nodeSelector
+    nodeSelector : {}
+    ## @param Deployment.Scheduling.affinity
+    affinity     : {}
+    ## @param Deployment.Scheduling.tolerations
+    tolerations  : []
+
+
+  ## @section Deployment.Storage - ``
+  Storage:
+    ## @param Deployment.Storage.mounts
+    mounts: []
+    # - name: foo
+    #   mountPath: "/etc/foo"
+    #   readOnly: true
+    ## @param Deployment.Storage.volumes
+    volumes: []
+    # - name: foo
+    #   secret:
+    #     secretName: mysecret
+    #     optional: false
+
 
 ## @section <hr/><h3>Network</h3>
 ## @descriptionStart
@@ -74,19 +160,19 @@ Network:
   ## @section Network.Service - ``
   Service:
     ## @param Network.Service.type
-    type: ClusterIP
+    type : ClusterIP
     ## @param Network.Service.port
-    port: 80
+    port : 80
 
 
   ## @section Network.Ingress - ``
   Ingress:
     ## @param Network.Ingress.enabled
-    enabled: false
+    enabled     : false
     ## @param Network.Ingress.className
-    className: ""
+    className   : ""
     ## @param Network.Ingress.annotations
-    annotations: {}
+    annotations : {}
       # kubernetes.io/ingress.class: nginx
       # kubernetes.io/tls-acme: "true"
 
@@ -98,12 +184,27 @@ Network:
         ## @extra Network.Ingress.Hosts[0].paths `[ ]`
         paths:
           ## @param Network.Ingress.Hosts[0].paths[0].path
-          - path: /
+          - path     : /
             ## @param Network.Ingress.Hosts[0].paths[0].pathType
-            pathType: ImplementationSpecific
+            pathType : ImplementationSpecific
 
     ## @param Network.Ingress.tls
     tls: []
-    #  - secretName: chart-example-tls
-    #    hosts:
-    #      - chart-example.local
+      # - secretName: chart-example-tls
+      #   hosts     :
+      #     - chart-example.local
+
+
+## @section <hr/><h3>ServiceAccount</h3>
+## @descriptionStart
+## no desctiption.
+## @descriptionEnd
+ServiceAccount:
+  ## @param ServiceAccount.create
+  create      : true
+  ## @param ServiceAccount.automount
+  automount   : true
+  ## @param ServiceAccount.annotations
+  annotations : {}
+  ## @param ServiceAccount.name
+  name        : ""

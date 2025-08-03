@@ -5,25 +5,74 @@ metadata:
   labels:
     {{- include "_.labels.common" . | nindent 4 }}
 spec:
-  replicas: {{ .Values.deployment.replicaCount }}
+  {{- if not .Values.Deployment.Autoscaling.enabled }}
+  replicas: {{ .Values.Deployment.replicaCount}}
+  {{- end }}
   selector:
     matchLabels:
       {{- include "_.labels.selector" . | nindent 6 }}
   template:
     metadata:
+      {{- with .Values.Deployment.Pod.annotations }}
+      annotations:
+        {{- toYaml . | nindent 8 }}
+      {{- end }}
       labels:
         {{- include "_.labels.common" . | nindent 8 }}
-  
+        {{- with .Values.Deployment.Pod.labels }}
+        {{- toYaml . | nindent 8 }}
+        {{- end }}
     spec:
+      {{- with .Values.Deployment.Image.pullSecrets }}
+      imagePullSecrets:
+        {{- toYaml . | nindent 8 }}
+      {{- end }}
+      serviceAccountName: {{ include "_.sa.name" . }}
+      {{- with .Values.Deployment.Pod.securityContext }}
+      securityContext:
+        {{- toYaml . | nindent 8 }}
+      {{- end }}
       containers:
         - name: {{ .Chart.Name }}
-          image: "{{ .Values.deployment.image.repository }}:{{ .Values.deployment.image.tag | default .Chart.AppVersion }}"
+          {{- with .Values.Deployment.Container.securityContext }}
+          securityContext:
+            {{- toYaml . | nindent 12 }}
+          {{- end }}
+          image: "{{ .Values.Deployment.Image.repository }}:{{ .Values.Deployment.Image.tag | default .Chart.AppVersion }}"
+          imagePullPolicy: {{ .Values.Deployment.Image.pullPolicy }}
           ports:
             - name: http
-              containerPort: {{ .Values.network.service.port }}
+              containerPort: {{ .Values.Network.Service.port }}
               protocol: TCP
-
-          {{- with .Values.deployment.resources }}
+          {{- with .Values.Deployment.Probes.livenessProbe }}
+          livenessProbe:
+            {{- toYaml . | nindent 12 }}
+          {{- end }}
+          {{- with .Values.Deployment.Probes.readinessProbe }}
+          readinessProbe:
+            {{- toYaml . | nindent 12 }}
+          {{- end }}
+          {{- with .Values.Deployment.Resources }}
           resources:
             {{- toYaml . | nindent 12 }}
           {{- end }}
+          {{- with .Values.Deployment.Storage.mounts }}
+          volumeMounts:
+            {{- toYaml . | nindent 12 }}
+          {{- end }}
+      {{- with .Values.Deployment.Storage.volumes }}
+      volumes:
+        {{- toYaml . | nindent 8 }}
+      {{- end }}
+      {{- with .Values.Deployment.Scheduling.nodeSelector }}
+      nodeSelector:
+        {{- toYaml . | nindent 8 }}
+      {{- end }}
+      {{- with .Values.Deployment.Scheduling.affinity }}
+      affinity:
+        {{- toYaml . | nindent 8 }}
+      {{- end }}
+      {{- with .Values.Deployment.Scheduling.tolerations }}
+      tolerations:
+        {{- toYaml . | nindent 8 }}
+      {{- end }}

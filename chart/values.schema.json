@@ -45,9 +45,40 @@
           "description": "",
           "default": 1
         },
+        "Autoscaling": {
+          "type": "object",
+          "properties": {
+            "enabled": {
+              "type": "boolean",
+              "description": "",
+              "default": false
+            },
+            "minReplicas": {
+              "type": "number",
+              "description": "",
+              "default": 1
+            },
+            "maxReplicas": {
+              "type": "number",
+              "description": "",
+              "default": 100
+            },
+            "targetCPUUtilizationPercentage": {
+              "type": "number",
+              "description": "",
+              "default": 80
+            }
+          }
+        },
         "Image": {
           "type": "object",
           "properties": {
+            "pullSecrets": {
+              "type": "array",
+              "description": "",
+              "default": [],
+              "items": {}
+            },
             "repository": {
               "type": "string",
               "description": "",
@@ -62,6 +93,154 @@
               "type": "string",
               "description": "",
               "default": ""
+            }
+          }
+        },
+        "Pod": {
+          "type": "object",
+          "properties": {
+            "annotations": {
+              "type": "object",
+              "description": "",
+              "default": {}
+            },
+            "labels": {
+              "type": "object",
+              "description": "",
+              "default": {}
+            },
+            "securityContext": {
+              "type": "object",
+              "description": "",
+              "default": {}
+            }
+          }
+        },
+        "Container": {
+          "type": "object",
+          "properties": {
+            "securityContext": {
+              "type": "object",
+              "description": "",
+              "default": {}
+            }
+          }
+        },
+        "Probes": {
+          "type": "object",
+          "properties": {
+            "livenessProbe": {
+              "type": "object",
+              "properties": {
+                "httpGet": {
+                  "type": "object",
+                  "properties": {
+                    "path": {
+                      "type": "string",
+                      "description": "",
+                      "default": "/"
+                    },
+                    "port": {
+                      "type": "string",
+                      "description": "",
+                      "default": "http"
+                    }
+                  }
+                }
+              }
+            },
+            "readinessProbe": {
+              "type": "object",
+              "properties": {
+                "httpGet": {
+                  "type": "object",
+                  "properties": {
+                    "path": {
+                      "type": "string",
+                      "description": "",
+                      "default": "/"
+                    },
+                    "port": {
+                      "type": "string",
+                      "description": "",
+                      "default": "http"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        },
+        "Resources": {
+          "type": "object",
+          "properties": {
+            "limits": {
+              "type": "object",
+              "properties": {
+                "cpu": {
+                  "type": "string",
+                  "description": "",
+                  "default": "100m"
+                },
+                "memory": {
+                  "type": "string",
+                  "description": "",
+                  "default": "128Mi"
+                }
+              }
+            },
+            "requests": {
+              "type": "object",
+              "properties": {
+                "cpu": {
+                  "type": "string",
+                  "description": "",
+                  "default": "100m"
+                },
+                "memory": {
+                  "type": "string",
+                  "description": "",
+                  "default": "128Mi"
+                }
+              }
+            }
+          }
+        },
+        "Scheduling": {
+          "type": "object",
+          "properties": {
+            "nodeSelector": {
+              "type": "object",
+              "description": "",
+              "default": {}
+            },
+            "affinity": {
+              "type": "object",
+              "description": "",
+              "default": {}
+            },
+            "tolerations": {
+              "type": "array",
+              "description": "",
+              "default": [],
+              "items": {}
+            }
+          }
+        },
+        "Storage": {
+          "type": "object",
+          "properties": {
+            "mounts": {
+              "type": "array",
+              "description": "",
+              "default": [],
+              "items": {}
+            },
+            "volumes": {
+              "type": "array",
+              "description": "",
+              "default": [],
+              "items": {}
             }
           }
         }
@@ -140,6 +319,31 @@
               "items": {}
             }
           }
+        }
+      }
+    },
+    "ServiceAccount": {
+      "type": "object",
+      "properties": {
+        "create": {
+          "type": "boolean",
+          "description": "",
+          "default": true
+        },
+        "automount": {
+          "type": "boolean",
+          "description": "",
+          "default": true
+        },
+        "annotations": {
+          "type": "object",
+          "description": "",
+          "default": {}
+        },
+        "name": {
+          "type": "string",
+          "description": "",
+          "default": ""
         }
       }
     }
