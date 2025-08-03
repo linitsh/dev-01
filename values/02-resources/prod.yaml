@@ -1,10 +1,18 @@
-# Kubernetes settings
-replicaCount: 3
+# ------------------------------------------------------------------
+# yaml-language-server: $schema=../../chart/values.schema.json
+# title               : Resources "prod" values for gold chart
+# tags                : [ chart ]
+# categories          : [ k8s, helm ]
+# ------------------------------------------------------------------
 
-resources:
-  requests:
-    cpu: 200m
-    memory: 256Mi
-  limits:
-    cpu: 200m
-    memory: 256Mi
+deployment:
+
+  replicaCount: 2
+
+  resources:
+    requests:
+      cpu: 200m
+      memory: 256Mi
+    limits:
+      cpu: 200m
+      memory: 256Mi

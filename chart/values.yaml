@@ -1,80 +1,66 @@
 # ------------------------------------------------------------------
-#yaml-language-server: $schema=schemas/values.schema.json
+# yaml-language-server: $schema=values.schema.json
 # title               : Default values for gold chart
 # tags                : [ chart ]
 # categories          : [ k8s, helm ]
 # ------------------------------------------------------------------
+# clear:^\s*##.*$
 
-####
-#* Default values
-###
-## @section Global parameters.
-## @descriptionStart
-## Example:  
-## ```yaml
-## global:
-##   some: true
-## ```
-## @descriptionEnd
+
 global:
-  ## @param global.some Test global param.
   some: true
 
 
-####
-#* Names section
-###
-## @section names
-## @descriptionStart This section contains parameters common to most of the Helm Charts in the wild
-## section test description
-## @descriptionEnd
-names:
+Names:
   override:
-    ## @param names.override.name This is to override the chart name.
     name     : ""
-    ## @param names.override.fullname This is to override the chart name.
     fullname : ""
-    ## @param names.override.namespace This is to override the chart namespace.  
     namespace: ""
 
 
-deployment:
+Deployment:
+  
   replicaCount: 1
 
-  image:
+  Image:
     repository: nginx
     pullPolicy: IfNotPresent
-    ## @param workloads.deployment.image.tag Overrides the image tag - default is the chart appVersion.
     tag: ""
+  
 
-  resources:
+  Resources:
     # limits:
     #   cpu: 100m
     #   memory: 128Mi
     # requests:
     #   cpu: 100m
     #   memory: 128Mi
-    ^: 
+    x : x
 
 
-network:
-  service:
+Network:
+  
+
+  Service:
     type: ClusterIP
     port: 80
 
-  ingress:
-    enabled  : false
+
+  Ingress:
+    enabled: false
     className: ""
     annotations: {}
       # kubernetes.io/ingress.class: nginx
       # kubernetes.io/tls-acme: "true"
-    hosts:
+
+
+    Hosts:
       - host: chart-example.local
         paths:
           - path: /
             pathType: ImplementationSpecific
+
     tls: []
     #  - secretName: chart-example-tls
     #    hosts:
     #      - chart-example.local
-    ^:

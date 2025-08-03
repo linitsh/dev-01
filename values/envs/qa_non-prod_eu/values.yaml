@@ -1,4 +1,9 @@
-# Environment settings
+# ------------------------------------------------------------------
+# yaml-language-server: $schema=../../../chart/values.schema.json
+# title               : Region "en" values for gold chart
+# tags                : [ chart ]
+# categories          : [ k8s, helm ]
+# ------------------------------------------------------------------
 
-podAnnotations:
-  environment: qa-non-prod-eu
+global:
+  some: true

@@ -1,0 +1,109 @@
+# ------------------------------------------------------------------
+# yaml-language-server: $schema=values.schema.json
+# title               : Default values for gold chart
+# tags                : [ chart ]
+# categories          : [ k8s, helm ]
+# ------------------------------------------------------------------
+# clear:^\s*##.*$
+
+
+## @section <hr/><h3>global</h3>
+## @descriptionStart
+## no desctiption.
+## @descriptionEnd
+global:
+  ## @param global.some
+  some: true
+
+
+## @section <hr/><h3>Names</h3>
+## @descriptionStart
+## no desctiption.
+## @descriptionEnd
+Names:
+  ## @extra Names.override `{ }`
+  override:
+
+    ## @param Names.override.name
+    name     : ""
+
+    ## @param Names.override.fullname
+    fullname : ""
+
+    ## @param Names.override.namespace
+    namespace: ""
+
+
+## @section <hr/><h3>Deployment</h3>
+## @descriptionStart
+## no desctiption.
+## @descriptionEnd
+Deployment:
+  
+  ## @param Deployment.replicaCount
+  replicaCount: 1
+
+  ## @section Deployment.Image - ``
+  Image:
+    ## @param Deployment.Image.repository
+    repository: nginx
+    ## @param Deployment.Image.pullPolicy
+    pullPolicy: IfNotPresent
+    ## @param Deployment.Image.tag
+    tag: ""
+  
+
+  ## @section Deployment.Resources - ``
+  Resources:
+    # limits:
+    #   cpu: 100m
+    #   memory: 128Mi
+    # requests:
+    #   cpu: 100m
+    #   memory: 128Mi
+    ## @skip Deployment.Resources.x
+    x : x
+
+## @section <hr/><h3>Network</h3>
+## @descriptionStart
+## no desctiption.
+## @descriptionEnd
+Network:
+  
+
+  ## @section Network.Service - ``
+  Service:
+    ## @param Network.Service.type
+    type: ClusterIP
+    ## @param Network.Service.port
+    port: 80
+
+
+  ## @section Network.Ingress - ``
+  Ingress:
+    ## @param Network.Ingress.enabled
+    enabled: false
+    ## @param Network.Ingress.className
+    className: ""
+    ## @param Network.Ingress.annotations
+    annotations: {}
+      # kubernetes.io/ingress.class: nginx
+      # kubernetes.io/tls-acme: "true"
+
+
+    ## @section Network.Ingress.Hosts - ``
+    Hosts:
+      ## @param Network.Ingress.Hosts[0].host
+      - host: chart-example.local
+        ## @extra Network.Ingress.Hosts[0].paths `[ ]`
+        paths:
+          ## @param Network.Ingress.Hosts[0].paths[0].path
+          - path: /
+            ## @param Network.Ingress.Hosts[0].paths[0].pathType
+            pathType: ImplementationSpecific
+
+    ## @param Network.Ingress.tls
+    tls: []
+    #  - secretName: chart-example-tls
+    #    hosts:
+    #      - chart-example.local

@@ -1,6 +1,12 @@
-# image:
-#   repository: "registry.gitlab.com/argocd9135324/app-01"
-#   tag: "0.0.8"
+# ------------------------------------------------------------------
+# yaml-language-server: $schema=../../chart/values.schema.json
+# title               : Image "qa" version values for gold chart
+# tags                : [ chart ]
+# categories          : [ k8s, helm ]
+# ------------------------------------------------------------------
 
-podLabels:
-  image: qa
+deployment:
+  image:
+    repository: "registry.gitlab.com/argocd9135324/app-01"
+    tag       : "0.0.8"
+

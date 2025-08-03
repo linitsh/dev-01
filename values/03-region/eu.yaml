@@ -1,3 +1,9 @@
+# ------------------------------------------------------------------
+# yaml-language-server: $schema=../../chart/values.schema.json
+# title               : Region "eu" values for gold chart
+# tags                : [ chart ]
+# categories          : [ k8s, helm ]
+# ------------------------------------------------------------------
 
-podLabels:
-  region: eu
+global:
+  some: true

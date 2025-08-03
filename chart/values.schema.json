@@ -1,0 +1,148 @@
+{
+  "title": "Chart Values",
+  "type": "object",
+  "properties": {
+    "global": {
+      "type": "object",
+      "properties": {
+        "some": {
+          "type": "boolean",
+          "description": "",
+          "default": true
+        }
+      }
+    },
+    "Names": {
+      "type": "object",
+      "properties": {
+        "override": {
+          "type": "object",
+          "properties": {
+            "name": {
+              "type": "string",
+              "description": "",
+              "default": ""
+            },
+            "fullname": {
+              "type": "string",
+              "description": "",
+              "default": ""
+            },
+            "namespace": {
+              "type": "string",
+              "description": "",
+              "default": ""
+            }
+          }
+        }
+      }
+    },
+    "Deployment": {
+      "type": "object",
+      "properties": {
+        "replicaCount": {
+          "type": "number",
+          "description": "",
+          "default": 1
+        },
+        "Image": {
+          "type": "object",
+          "properties": {
+            "repository": {
+              "type": "string",
+              "description": "",
+              "default": "nginx"
+            },
+            "pullPolicy": {
+              "type": "string",
+              "description": "",
+              "default": "IfNotPresent"
+            },
+            "tag": {
+              "type": "string",
+              "description": "",
+              "default": ""
+            }
+          }
+        }
+      }
+    },
+    "Network": {
+      "type": "object",
+      "properties": {
+        "Service": {
+          "type": "object",
+          "properties": {
+            "type": {
+              "type": "string",
+              "description": "",
+              "default": "ClusterIP"
+            },
+            "port": {
+              "type": "number",
+              "description": "",
+              "default": 80
+            }
+          }
+        },
+        "Ingress": {
+          "type": "object",
+          "properties": {
+            "enabled": {
+              "type": "boolean",
+              "description": "",
+              "default": false
+            },
+            "className": {
+              "type": "string",
+              "description": "",
+              "default": ""
+            },
+            "annotations": {
+              "type": "object",
+              "description": "",
+              "default": {}
+            },
+            "Hosts": {
+              "type": "array",
+              "description": "",
+              "items": {
+                "type": "object",
+                "properties": {
+                  "host": {
+                    "type": "string",
+                    "description": ""
+                  },
+                  "paths": {
+                    "type": "array",
+                    "description": "",
+                    "items": {
+                      "type": "object",
+                      "properties": {
+                        "path": {
+                          "type": "string",
+                          "description": ""
+                        },
+                        "pathType": {
+                          "type": "string",
+                          "description": ""
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            },
+            "tls": {
+              "type": "array",
+              "description": "",
+              "default": [],
+              "items": {}
+            }
+          }
+        }
+      }
+    }
+  },
+  "additionalProperties": false
+}
