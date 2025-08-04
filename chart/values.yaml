@@ -19,7 +19,7 @@ Names:
 
 
 Deployment:
-  
+  test        : true
   replicaCount: 1
 
 
@@ -126,3 +126,15 @@ ServiceAccount:
   automount   : true
   annotations : {}
   name        : ""
+
+
+Configs:
+  files:
+    default-conf: |
+      # inserted by --set-file
+
+    index-html: |
+      # inserted by --set-file
+
+    50x-html: |
+      # inserted by --set-file

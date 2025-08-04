@@ -20,7 +20,7 @@ tasks:
       RELEASE_NAME : test-chart
       PATH_TO_CHART: chart
       FLAGS        : '--debug'
-      FILES        : '--set-file cfg.index\\.html=chart/files/index.html --set-file cfg.default\\.conf=fchart/iles/default.conf --set-file cfg.50x\\.html=chart/files/50x.html'
+      FILES        : '' #'--set-file cfg.index\\.html=chart/files/index.html --set-file cfg.default\\.conf=fchart/iles/default.conf --set-file cfg.50x\\.html=chart/files/50x.html'
     cmds:
     - helm template {{ .RELEASE_NAME }} {{ .PATH_TO_CHART }} {{ .FLAGS }} {{ .FILES }} > logs/tpl.yaml 
   

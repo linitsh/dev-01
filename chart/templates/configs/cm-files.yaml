@@ -1,10 +1,10 @@
 kind: ConfigMap
 apiVersion: v1
 metadata:
-  name: {{ include "names.fullname" . }}
+  name: {{ include "_.names.fullname" . }}
   namespace: default
 data:
-{{- range $name, $value := .Values.cfmFiles }}
+{{- range $name, $value := .Values.Configs.files }}
   {{ $name }}: {{ print "|" }}
     {{- $value | nindent 4 }}
 {{- end }}

@@ -346,6 +346,31 @@
           "default": ""
         }
       }
+    },
+    "Configs": {
+      "type": "object",
+      "properties": {
+        "files": {
+          "type": "object",
+          "properties": {
+            "default-conf": {
+              "type": "string",
+              "description": "",
+              "default": "# inserted by --set-file\n"
+            },
+            "index-html": {
+              "type": "string",
+              "description": "",
+              "default": "# inserted by --set-file\n"
+            },
+            "50x-html": {
+              "type": "string",
+              "description": "",
+              "default": "# inserted by --set-file\n"
+            }
+          }
+        }
+      }
     }
   },
   "additionalProperties": false

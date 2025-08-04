@@ -145,3 +145,16 @@ no desctiption.
 | `ServiceAccount.annotations` |             | `{}`   |
 | `ServiceAccount.name`        |             | `""`   |
 
+#### <hr/><h3>Configs</h3>
+
+no desctiption.
+
+| Name                         | Description | Value                       |
+| ---------------------------- | ----------- | --------------------------- |
+| `Configs.files.default-conf` |             | `# inserted by --set-file
+` |
+| `Configs.files.index-html`   |             | `# inserted by --set-file
+` |
+| `Configs.files.50x-html`     |             | `# inserted by --set-file
+` |
+

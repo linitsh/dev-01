@@ -6,13 +6,13 @@ If release name contains chart name it will be used as a full name.
 */}}
 {{- define "_.names.fullname" -}}
 
-    {{- if .Values.names.override.fullname }}
+    {{- if .Values.Names.override.fullname }}
 
         {{- .Values.names.override.fullname | trunc 63 | trimSuffix "-" }}
 
     {{- else }}
 
-        {{- $name := default .Chart.Name .Values.names.override.name }}
+        {{- $name := default .Chart.Name .Values.Names.override.name }}
 
         {{- if contains $name .Release.Name }}
             {{- .Release.Name | trunc 63 | trimSuffix "-" }}

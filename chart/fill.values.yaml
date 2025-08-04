@@ -208,3 +208,23 @@ ServiceAccount:
   annotations : {}
   ## @param ServiceAccount.name
   name        : ""
+
+
+## @section <hr/><h3>Configs</h3>
+## @descriptionStart
+## no desctiption.
+## @descriptionEnd
+Configs:
+
+  files:
+    ## @param Configs.files.default-conf
+    default-conf: |
+      # inserted by --set-file
+
+    ## @param Configs.files.index-html
+    index-html: |
+      # inserted by --set-file
+
+    ## @param Configs.files.50x-html
+    50x-html: |
+      # inserted by --set-file
