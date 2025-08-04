@@ -7,7 +7,7 @@
 # clear:^\s*##.*$
 
 
-## @section <hr/><h3>global</h3>
+## @section global
 ## @descriptionStart
 ## no desctiption.
 ## @descriptionEnd
@@ -16,12 +16,12 @@ global:
   some: true
 
 
-## @section <hr/><h3>Names</h3>
+## @section Names
 ## @descriptionStart
 ## no desctiption.
 ## @descriptionEnd
 Names:
-  ## @extra Names.override `{ }`
+  ## @extra Names.override [object]
   override:
     ## @param Names.override.name
     name     : ""
@@ -31,12 +31,13 @@ Names:
     namespace: ""
 
 
-## @section <hr/><h3>Deployment</h3>
+## @section Deployment
 ## @descriptionStart
 ## no desctiption.
 ## @descriptionEnd
 Deployment:
-  
+  ## @param Deployment.test
+  test        : true
   ## @param Deployment.replicaCount
   replicaCount: 1
 
@@ -91,17 +92,17 @@ Deployment:
 
   ## @section Deployment.Probes - ``
   Probes:
-    ## @extra Deployment.Probes.livenessProbe `{ }`
+    ## @extra Deployment.Probes.livenessProbe [object]
     livenessProbe:
-      ## @extra Deployment.Probes.livenessProbe.httpGet `{ }`
+      ## @extra Deployment.Probes.livenessProbe.httpGet [object]
       httpGet:
         ## @param Deployment.Probes.livenessProbe.httpGet.path
         path: /
         ## @param Deployment.Probes.livenessProbe.httpGet.port
         port: http
-    ## @extra Deployment.Probes.readinessProbe `{ }`
+    ## @extra Deployment.Probes.readinessProbe [object]
     readinessProbe:
-      ## @extra Deployment.Probes.readinessProbe.httpGet `{ }`
+      ## @extra Deployment.Probes.readinessProbe.httpGet [object]
       httpGet:
         ## @param Deployment.Probes.readinessProbe.httpGet.path
         path: /
@@ -111,13 +112,13 @@ Deployment:
 
   ## @section Deployment.Resources - ``
   Resources:
-    ## @extra Deployment.Resources.limits `{ }`
+    ## @extra Deployment.Resources.limits [object]
     limits:
       ## @param Deployment.Resources.limits.cpu
       cpu: 100m
       ## @param Deployment.Resources.limits.memory
       memory: 128Mi
-    ## @extra Deployment.Resources.requests `{ }`
+    ## @extra Deployment.Resources.requests [object]
     requests:
       ## @param Deployment.Resources.requests.cpu
       cpu: 100m
@@ -150,7 +151,7 @@ Deployment:
     #     optional: false
 
 
-## @section <hr/><h3>Network</h3>
+## @section Network
 ## @descriptionStart
 ## no desctiption.
 ## @descriptionEnd
@@ -181,7 +182,7 @@ Network:
     Hosts:
       ## @param Network.Ingress.Hosts[0].host
       - host: chart-example.local
-        ## @extra Network.Ingress.Hosts[0].paths `[ ]`
+        ## @extra Network.Ingress.Hosts[0].paths [array]
         paths:
           ## @param Network.Ingress.Hosts[0].paths[0].path
           - path     : /
@@ -195,7 +196,7 @@ Network:
       #     - chart-example.local
 
 
-## @section <hr/><h3>ServiceAccount</h3>
+## @section ServiceAccount
 ## @descriptionStart
 ## no desctiption.
 ## @descriptionEnd
@@ -210,21 +211,22 @@ ServiceAccount:
   name        : ""
 
 
-## @section <hr/><h3>Configs</h3>
+## @section Configs
 ## @descriptionStart
 ## no desctiption.
 ## @descriptionEnd
 Configs:
-
+  ## @extra Configs.files [object]
   files:
-    ## @param Configs.files.default-conf
-    default-conf: |
+
+    ## @param Configs.files.default_conf
+    default_conf: |-
       # inserted by --set-file
 
-    ## @param Configs.files.index-html
-    index-html: |
+    ## @param Configs.files.index_html
+    index_html: |-
       # inserted by --set-file
 
-    ## @param Configs.files.50x-html
-    50x-html: |
+    ## @param Configs.files.50x_html
+    50x_html: |-
       # inserted by --set-file

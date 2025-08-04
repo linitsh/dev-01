@@ -5,6 +5,6 @@ metadata:
   namespace: default
 data:
 {{- range $name, $value := .Values.Configs.files }}
-  {{ $name }}: {{ print "|" }}
+  {{ $name | replace  "_" "." }}: {{ print "|-" }}
     {{- $value | nindent 4 }}
 {{- end }}

@@ -130,11 +130,12 @@ ServiceAccount:
 
 Configs:
   files:
-    default-conf: |
+
+    default_conf: |-
       # inserted by --set-file
 
-    index-html: |
+    index_html: |-
       # inserted by --set-file
 
-    50x-html: |
+    50x_html: |-
       # inserted by --set-file
