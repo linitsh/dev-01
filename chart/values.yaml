@@ -127,19 +127,19 @@ Network:
 
 ServiceAccount:
   create      : true
+  name        : ""
   automount   : true
   annotations : {}
-  name        : ""
 
 
 Configs:
   files:
 
-    default_conf: |-
+    default_conf : |-
       # inserted by --set-file
 
-    index_html: |-
+    index_html   : |-
       # inserted by --set-file
 
-    50x_html: |-
+    50x_html     : |-
       # inserted by --set-file

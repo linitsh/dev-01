@@ -1,14 +1,25 @@
-
-{{/* 
-Create a default fully qualified app name.
-We truncate at 63 chars because some Kubernetes name fields are limited to this (by the DNS naming spec).
-If release name contains chart name it will be used as a full name.
+{{/* Docs
+name  : _.names.fullname
+type  : key
+desc  :
+- Create a default fully qualified app name.
+- We truncate at 63 chars because some Kubernetes name fields are limited to this (by the DNS naming spec).
+- If release name contains chart name it will be used as a full name.
+use   : []
+params: []
+values: [ .Chart.Name , .Release.Name , .Values.Names.override.fullname , .Values.Names.override.name ]
+examples: 
+- simple: |-
+    key : {{ include "_.names.fullname" . }}
+  result: |-
+    key : test-chart
 */}}
+
 {{- define "_.names.fullname" -}}
 
     {{- if .Values.Names.override.fullname }}
 
-        {{- .Values.names.override.fullname | trunc 63 | trimSuffix "-" }}
+        {{- .Values.Names.override.fullname | trunc 63 | trimSuffix "-" }}
 
     {{- else }}
 
