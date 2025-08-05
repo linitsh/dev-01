@@ -1,13 +1,11 @@
 {{/* Docs
-name  : _.affinities.pods
 desc  :
 - Return a podAffinity/podAntiAffinity definition.
-type  : keys
-use   : [ _.affinities.pods.soft , _.affinities.pods.hard ]
+uselib: [ affinities.pods.soft , affinities.pods.hard ]
+values: []
 params:
 - name: type
   desc: reuse "soft" or "hard" pod affinities.
-values: []
 examples: 
 - simple: |-
     keys: 

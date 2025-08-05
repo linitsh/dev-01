@@ -1,11 +1,9 @@
 {{/* Docs
-name  : _.names.fullname-namespace
-type  : key
 desc  :
 - Create a fully qualified app name adding the installation's namespace.
-use   : [ names ]
-params: []
+uselib: [ names ]
 values: []
+params: []
 examples: 
 - simple: |-
     key : {{ include "_.names.fullname-namespace" . }}

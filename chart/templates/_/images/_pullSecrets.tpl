@@ -1,8 +1,20 @@
-
-{{/*
-Return the proper Docker Image Registry Secret Names (deprecated: use _.images.renderPullSecrets instead)
-{{ include "_.images.pullSecrets" ( dict "images" (list .Values.path.to.the.image1, .Values.path.to.the.image2) "global" .Values.global) }}
+{{/* Docs
+desc  :
+- Return the proper Docker Image Registry Secret Names (deprecated: use _.images.renderPullSecrets instead)
+uselib: []
+values: []
+params: 
+- name: images
+  desc: List to values images root paths
+examples: 
+- simple: |-
+    keys: 
+      {{ include "_.images.pullSecrets" ( dict "images" (list .Values.path.to.the.image1, .Values.path.to.the.image2) "global" .Values.global) }}
+  result: |-
+    keys: 
+      key: unknown
 */}}
+
 {{- define "_.images.pullSecrets" -}}
   {{- $pullSecrets := list }}
 

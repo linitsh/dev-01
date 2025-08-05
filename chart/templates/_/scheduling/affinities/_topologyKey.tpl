@@ -1,11 +1,9 @@
 {{/* Docs
-name  : _.affinities.topologyKey
 desc  :
 - Return a topologyKey definition.
-type  : keys
-use   : []
-params: [ topologyKey ]
+uselib: []
 values: []
+params: [ topologyKey ]
 examples: 
 - simple: |-
     keys:

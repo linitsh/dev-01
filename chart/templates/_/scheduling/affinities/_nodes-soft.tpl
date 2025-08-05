@@ -1,11 +1,9 @@
 {{/* Docs
-name  : _.affinities.nodes.soft
 desc  :
 - Return a soft nodeAffinity definition.
-type  : keys
-use   : []
-params: [ key , values ]
+uselib: []
 values: []
+params: [ key , values ]
 examples: 
 - simple: |-
     keys: 

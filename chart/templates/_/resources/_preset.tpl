@@ -1,13 +1,11 @@
 {{/* Docs
-name  : _.resources.preset
 desc  :
 - Return a resource request/limit object based on a given preset.
 - These presets are for basic testing and not meant to be used in production.
 - The limits are the requests increased by 50% (except ephemeral-storage and xlarge/2xlarge sizes)
-type  : keys
-use   : []
-params: [ type ]
+uselib: []
 values: []
+params: [ type ]
 examples: 
 - simple: |-
     keys: 

@@ -1,13 +1,11 @@
 {{/* Docs
-name  : _.affinities.nodes
 desc  :
 - Return a nodeAffinity definition.
-type  : keys
-use   : [ _.affinities.nodes.soft , _.affinities.nodes.hard ]
+uselib: [ affinities.nodes.soft , affinities.nodes.hard ]
+values: []
 params:
 - name: type
   desc: reuse "soft" or "hard" affinities.
-values: []
 examples: 
 - simple: |-
     keys: 

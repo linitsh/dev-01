@@ -1,15 +1,13 @@
 {{/* Docs
-name  : _.storage.class
 desc  :
 - Return the proper Storage Class.
-type  : key
-use   : []
+uselib: []
+values: [ (global).storageClass , (global).defaultStorageClass , persistence.storageClass ]
 params:
 - name: persistence
   desc: storageClass path ? 
 - name: global
   desc: what global to use ?
-values: [ (.global).storageClass , (.global).defaultStorageClass , .persistence.storageClass ]
 examples: 
 - simple: |-
     key : {{ include "_.storage.class" ( dict "persistence" .Values.path.to.the.persistence "global" $) }}

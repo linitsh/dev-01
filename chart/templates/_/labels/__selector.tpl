@@ -1,11 +1,9 @@
 {{/* Docs
-name  : _.labels.selector
-type  : keys
 desc  :
 - Generate selector labels for any.
-use   : [ _.names.name ]
+uselib: [ names.name ]
+values: [ Release.Name ]
 params: []
-values: [ .Release.Name ]
 examples: 
 - simple: |-
     keys:

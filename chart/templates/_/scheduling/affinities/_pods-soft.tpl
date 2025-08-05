@@ -1,11 +1,9 @@
 {{/* Docs
-name  : _.affinities.pods.soft
 desc  :
 - Return a soft podAffinity/podAntiAffinity definition.
-type  : keys
-use   : []
-params: [ component , customLabels , extraMatchLabels , topologyKey , extraPodAffinityTerms , extraNamespaces , context ]
+uselib: []
 values: []
+params: [ component , customLabels , extraMatchLabels , topologyKey , extraPodAffinityTerms , extraNamespaces , context ]
 examples: 
 - simple: |-
     keys: 

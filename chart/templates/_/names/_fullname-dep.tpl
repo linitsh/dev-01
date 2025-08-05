@@ -1,13 +1,11 @@
 {{/* Docs
-name  : _.names.fullname
-type  : key
 desc  :
 - Create a default fully qualified dependency name.
 - We truncate at 63 chars because some Kubernetes name fields are limited to this (by the DNS naming spec).
 - If release name contains chart name it will be used as a full name.
-use   : []
+uselib: []
+values: [ subchart.Values ]
 params: [ chartName , chartValues ]
-values: [ subchart-values ]
 examples: 
 - simple: |-
     key : {{ include "_.names.dependency.fullname" (dict "chartName" "redis" "chartValues" .Values.redis "context" $) }}

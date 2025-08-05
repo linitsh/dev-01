@@ -1,11 +1,9 @@
 {{/* Docs
-name  : _.
 desc  :
 - 
-type  : key
-use   : []
-params: []
+uselib: []
 values: []
+params: []
 examples: 
 - simple: |-
     key : 

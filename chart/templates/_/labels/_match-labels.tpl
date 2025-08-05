@@ -1,18 +1,16 @@
 {{/* Docs
-name  : _.labels.match-labels
-type  : keys
 desc  :
 - Labels used on immutable fields such as deploy.spec.selector.match-labels or svc.spec.selector
 - We don't want to loop over custom labels appending them to the selector
 - since it's very likely that it will break deployments, services, etc.
 - However, it's important to overwrite the standard labels if the user
 - overwrote them on metadata.labels fields.
-use   : [ _.tplvalues.render , _.names.name ]
+uselib: [ tplvalues.render , names.name ]
+values: [ Release.Name ]
 params: 
 - name: customLabels
-  desc: example - .Values.Deployment.Pod.labels
+  desc: Labels path aka - Values.Deployment.Pod.labels
 - name: context 
-values: [ .Release.Name ]
 examples: 
 - simple: |-
     keys:

@@ -1,11 +1,9 @@
 {{/* Docs
-name  : _.names.name
-type  : key
 desc  :
 - Expand the name of the chart.
-use   : []
+uselib: []
+values: [ Chart.Name , Values.Names.override.name ]
 params: []
-values: [ .Chart.Name , .Values.Names.override.name ]
 examples: 
 - simple: |-
     key : {{ include "_.names.name" . }}

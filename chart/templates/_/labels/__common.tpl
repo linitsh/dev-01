@@ -1,11 +1,9 @@
 {{/* Docs
-name  : _.labels.common
-type  : keys
 desc  :
 - Common labels
-use   : [ _.names.chart-name-version , _.labels.selector ]
+uselib: [ names.chart-name-version , labels.selector ]
+values: [ Chart.AppVersion , Release.Service ]
 params: []
-values: [ .Chart.AppVersion , .Release.Service ]
 examples: 
 - simple: |-
     keys: 

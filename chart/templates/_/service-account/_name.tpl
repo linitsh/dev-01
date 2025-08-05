@@ -1,11 +1,9 @@
 {{/* Docs
-name  : _.sa.name
 desc  :
 - Create the name of the service account to use 
-type  : key
-use   : [ _.names.fullname ]
+uselib: [ names.fullname ]
+values: [ Values.ServiceAccount.create , Values.ServiceAccount.name ]
 params: []
-values: [ .Values.ServiceAccount.create , .Values.ServiceAccount.name ]
 examples: 
 - simple: |-
     key : {{ include "_.sa.name" . }}

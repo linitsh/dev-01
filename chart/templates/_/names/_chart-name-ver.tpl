@@ -1,11 +1,9 @@
 {{/* Docs
-name  : _.names.chart-name-version
-type  : key
 desc  :
 - Create chart name and version as used by the chart label. 
-use   : []
+uselib: []
+values: [ Chart.Name , Chart.Version ]
 params: []
-values: [ .Chart.Name , .Chart.Version ]
 examples: 
 - simple: |-
     key: {{ include "_.names.chart-name-version . }}

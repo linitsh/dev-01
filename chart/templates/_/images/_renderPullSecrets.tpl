@@ -1,8 +1,20 @@
-
-{{/*
-Return the proper Docker Image Registry Secret Names evaluating values as templates
-{{ include "_.images.renderPullSecrets" ( dict "images" (list .Values.path.to.the.image1, .Values.path.to.the.image2) "context" $) }}
+{{/* Docs
+desc  :
+- Return the proper Docker Image Registry Secret Names evaluating values as templates
+uselib: []
+values: []
+params: 
+- name: images
+  desc: List to values images root paths
+examples: 
+- simple: |-
+    keys: 
+      {{ include "_.images.renderPullSecrets" ( dict "images" (list .Values.path.to.the.image1, .Values.path.to.the.image2) "context" $) }}
+  result: |-
+    keys:
+      key: unknown
 */}}
+
 {{- define "_.images.renderPullSecrets" -}}
   {{- $pullSecrets := list }}
   {{- $context := .context }}

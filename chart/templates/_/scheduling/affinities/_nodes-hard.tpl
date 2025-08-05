@@ -1,11 +1,9 @@
 {{/* Docs
-name  : _.affinities.nodes.hard
 desc  :
 - Return a hard nodeAffinity definition.
-type  : keys
-use   : []
-params: [ key , values ]
+uselib: []
 values: []
+params: [ key , values ]
 examples: 
 - simple: |-
     keys: 
