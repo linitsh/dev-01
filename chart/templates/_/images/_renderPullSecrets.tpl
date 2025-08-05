@@ -1,5 +1,4 @@
-{{/* Docs
-desc  :
+{{/* =:
 - Return the proper Docker Image Registry Secret Names evaluating values as templates
 uselib: []
 values: []

@@ -1,5 +1,4 @@
-{{/* Docs
-desc  :
+{{/* =:
 - Create the name of the service account to use 
 uselib: [ names.fullname ]
 values: [ Values.ServiceAccount.create , Values.ServiceAccount.name ]

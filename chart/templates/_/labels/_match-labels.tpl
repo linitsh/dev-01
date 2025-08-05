@@ -1,5 +1,4 @@
-{{/* Docs
-desc  :
+{{/* =:
 - Labels used on immutable fields such as deploy.spec.selector.match-labels or svc.spec.selector
 - We don't want to loop over custom labels appending them to the selector
 - since it's very likely that it will break deployments, services, etc.

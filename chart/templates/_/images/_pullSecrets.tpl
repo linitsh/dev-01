@@ -1,5 +1,4 @@
-{{/* Docs
-desc  :
+{{/* =:
 - Return the proper Docker Image Registry Secret Names (deprecated: use _.images.renderPullSecrets instead)
 uselib: []
 values: []

@@ -1,5 +1,4 @@
-{{/* Docs
-desc  :
+{{/* =:
 - Common labels
 uselib: [ names.chart-name-version , labels.selector ]
 values: [ Chart.AppVersion , Release.Service ]

@@ -1,5 +1,4 @@
-{{/* Docs
-desc  :
+{{/* =:
 - Generate selector labels for any.
 uselib: [ names.name ]
 values: [ Release.Name ]

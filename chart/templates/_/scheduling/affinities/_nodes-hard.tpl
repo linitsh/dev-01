@@ -1,5 +1,4 @@
-{{/* Docs
-desc  :
+{{/* =:
 - Return a hard nodeAffinity definition.
 uselib: []
 values: []

@@ -1,5 +1,4 @@
-{{/* Docs
-desc  :
+{{/* =:
 - Return a soft podAffinity/podAntiAffinity definition.
 uselib: []
 values: []

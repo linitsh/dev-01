@@ -1,5 +1,4 @@
-{{/* Docs
-desc  :
+{{/* =:
 - Return the proper image name.
 - If image tag and digest are not defined, termination fallbacks to chart appVersion.
 uselib: []

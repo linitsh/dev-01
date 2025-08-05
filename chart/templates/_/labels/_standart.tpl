@@ -1,5 +1,4 @@
-{{/* Docs
-desc  :
+{{/* =:
 - Kubernetes standard labels.
 uselib: [ names , tplvalues ]
 values: [ Release.Name , Chart.AppVersion  , Release.Name , Release.Service ]

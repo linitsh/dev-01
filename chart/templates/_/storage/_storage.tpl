@@ -1,5 +1,4 @@
-{{/* Docs
-desc  :
+{{/* =:
 - Return the proper Storage Class.
 uselib: []
 values: [ (global).storageClass , (global).defaultStorageClass , persistence.storageClass ]

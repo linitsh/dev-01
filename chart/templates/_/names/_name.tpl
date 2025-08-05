@@ -1,5 +1,4 @@
-{{/* Docs
-desc  :
+{{/* =:
 - Expand the name of the chart.
 uselib: []
 values: [ Chart.Name , Values.Names.override.name ]

@@ -1,5 +1,4 @@
-{{/* Docs
-desc  :
+{{/* =:
 - Return a nodeAffinity definition.
 uselib: [ affinities.nodes.soft , affinities.nodes.hard ]
 values: []

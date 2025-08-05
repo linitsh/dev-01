@@ -1,5 +1,4 @@
-{{/* Docs
-desc  :
+{{/* =:
 - Allow the release namespace to be overridden for multi-namespace deployments in combined charts.
 uselib: []
 values: [ Values.Names.override.namespace , Release.Namespace ]

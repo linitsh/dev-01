@@ -1,5 +1,4 @@
-{{/* Docs
-desc  :
+{{/* =:
 - Return a topologyKey definition.
 uselib: []
 values: []

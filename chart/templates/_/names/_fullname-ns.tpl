@@ -1,5 +1,4 @@
-{{/* Docs
-desc  :
+{{/* =:
 - Create a fully qualified app name adding the installation's namespace.
 uselib: [ names ]
 values: []

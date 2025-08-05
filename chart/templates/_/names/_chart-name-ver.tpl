@@ -1,5 +1,4 @@
-{{/* Docs
-desc  :
+{{/* =:
 - Create chart name and version as used by the chart label. 
 uselib: []
 values: [ Chart.Name , Chart.Version ]

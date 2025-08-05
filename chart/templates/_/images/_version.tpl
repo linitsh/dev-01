@@ -1,5 +1,4 @@
-{{/* Docs
-desc  :
+{{/* =:
 - Return the proper image version (ingores image revision/prerelease info & fallbacks to chart appVersion)
 uselib: []
 values: []
