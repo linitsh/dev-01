@@ -20,7 +20,7 @@ examples:
 
 {{/* Common labels */}}
 {{- define "_.labels.common" -}}
-helm.sh/chart: {{ include "_.names.chartNameVersion" . }}
+helm.sh/chart: {{ include "_.names.chart-name-version" . }}
 {{ include "_.labels.selector" . }}
 {{- if .Chart.AppVersion }}
 app.kubernetes.io/version: {{ .Chart.AppVersion | quote }}

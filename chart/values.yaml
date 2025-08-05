@@ -1,5 +1,5 @@
 # ------------------------------------------------------------------
-# yaml-language-server: $schema=values.schema.json
+#yaml-language-server: $schema=values.schema.json
 # title               : Default values for gold chart
 # tags                : [ chart ]
 # categories          : [ k8s, helm ]
@@ -16,6 +16,10 @@ Names:
     name     : ""
     fullname : ""
     namespace: ""
+
+
+Common:
+  labels: {}
 
 
 Deployment:
