@@ -20,17 +20,29 @@ examples:
       app.kubernetes.io/instance: test-chart
 - params: |-
     keys:
-      {{ include "_.labels.match-labels" (dict "customLabels" .Values.Deployment.Pod.labels "context" $) -}}
+      {{- include "_.labels.match-labels" (dict "customLabels" .Pod.labels "context" $) | nindent 6 }}
 
 */}}
 
 {{- define "_.labels.match-labels" -}}
+    {{- if and (hasKey . "customLabels") (hasKey . "context") -}}
 
-{{- if and (hasKey . "customLabels") (hasKey . "context") -}}
-    {{ merge (pick (include "_.tplvalues.render" (dict "value" .customLabels "context" .context) | fromYaml) "app.kubernetes.io/name" "app.kubernetes.io/instance") (dict "app.kubernetes.io/name" (include "_.names.name" .context) "app.kubernetes.io/instance" .context.Release.Name ) | toYaml }}
-{{- else -}}
-app.kubernetes.io/name: {{ include "_.names.name" . }}
-app.kubernetes.io/instance: {{ .Release.Name }}
-{{- end -}}
+        {{- $dict1     := (dict "value" .customLabels "context" .context) -}}
+        {{- $pickFrom  := include "_.tplvalues.render" $dict1 | fromYaml  -}}
+        {{- $pickWhat1 := "app.kubernetes.io/instance"                    -}}
+        {{- $pickWhat2 := "app.kubernetes.io/name"                        -}}
+        {{- $pick      := pick ($pickFrom) $pickWhat1 $pickWhat2          -}}
+        
+        {{- $getName   := include "_.names.name" .context                 -}}
+        {{- $dict2     := dict 
+              "app.kubernetes.io/name"      $getName 
+              "app.kubernetes.io/instance" .context.Release.Name
+        -}}
 
+        {{- merge $pick $dict2  | toYaml -}}
+
+    {{- else -}}
+app.kubernetes.io/name     : {{ include "_.names.name" . }}
+app.kubernetes.io/instance : {{ .Release.Name }}
+    {{- end -}}
 {{- end -}}

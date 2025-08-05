@@ -3,7 +3,7 @@ kind: Service
 metadata:
   name: {{ include "_.names.fullname" . }}
   labels:
-    {{- include "_.labels.common" . | nindent 4 }}
+    {{- include "_.labels.standard" . | nindent 4 }}
 spec:
   type: {{ .Values.Network.Service.type }}
   ports:
@@ -11,5 +11,4 @@ spec:
       targetPort: http
       protocol: TCP
       name: http
-  selector:
-    {{- include "_.labels.selector" . | nindent 4 }}
+  selector: {}

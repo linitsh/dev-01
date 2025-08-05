@@ -30,4 +30,4 @@ examples:
 
     {{- end }}
 
-{{- end }}
+{{- end -}}

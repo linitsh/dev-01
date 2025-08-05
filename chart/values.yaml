@@ -11,6 +11,12 @@ global:
   some: true
 
 
+Common:
+  labels: {}
+
+  Extra:
+    labels: {}
+
 Names:
   override:
     name     : ""
@@ -18,14 +24,10 @@ Names:
     namespace: ""
 
 
-Common:
-  labels: {}
-
 
 Deployment:
-  test        : true
-  replicaCount: 1
-
+  test    : true
+  replicas: 1
 
   Autoscaling:
     enabled                        : false
@@ -43,8 +45,10 @@ Deployment:
   
 
   Pod:
-    annotations    : {}
-    labels         : {}
+    annotations    : 
+      i: pod-annotation
+    labels         : 
+      i: pod-label
     securityContext: {}
       # fsGroup       : 2000
 
@@ -143,3 +147,7 @@ Configs:
 
     50x_html     : |-
       # inserted by --set-file
+
+
+redis:
+  enabled: false

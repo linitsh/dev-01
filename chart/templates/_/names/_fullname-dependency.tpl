@@ -7,12 +7,12 @@ values: [ subchart.Values ]
 params: [ chartName , chartValues ]
 examples: 
 - simple: |-
-    key : {{ include "_.names.dependency.fullname" (dict "chartName" "redis" "chartValues" .Values.redis "context" $) }}
+    key : {{ include "_.names.fullname-dependency" (dict "chartName" "redis" "chartValues" .Values.redis "context" $) }}
   result: |-
     key : test-chart-redis
 */}}
 
-{{- define "_.names.dependency.fullname" -}}
+{{- define "_.names.fullname-dependency" -}}
 
     {{- if .chartValues.fullnameOverride -}}
 

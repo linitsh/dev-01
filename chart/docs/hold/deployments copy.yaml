@@ -1,80 +1,78 @@
-
-{{- $i := .Values.Deployment -}}
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name  : {{ include "_.names.fullname" . }}
+  name: {{ include "_.names.fullname" . }}
   labels:
-    {{- include "_.labels.standard" . | nindent 4 }}
+    {{- include "_.labels.common" . | nindent 4 }}
 spec:
-  {{- if not $i.Autoscaling.enabled }}
-  replicas: {{ $i.replicas}}
+  {{- if not .Values.Deployment.Autoscaling.enabled }}
+  replicas: {{ .Values.Deployment.replicaCount}}
   {{- end }}
   selector:
     matchLabels:
-      {{- include "_.labels.match-labels" . | nindent 6 }}
+      {{- include "_.labels.selector" . | nindent 6 }}
   template:
     metadata:
-      {{- with $i.Pod.annotations }}
+      {{- with .Values.Deployment.Pod.annotations }}
       annotations:
         {{- toYaml . | nindent 8 }}
       {{- end }}
       labels:
-        {{- include "_.labels.standard" . | nindent 8 }}
-        {{- with $i.Pod.labels }}
+        {{- include "_.labels.common" . | nindent 8 }}
+        {{- with .Values.Deployment.Pod.labels }}
         {{- toYaml . | nindent 8 }}
         {{- end }}
     spec:
-      {{- with $i.Image.pullSecrets }}
+      {{- with .Values.Deployment.Image.pullSecrets }}
       imagePullSecrets:
         {{- toYaml . | nindent 8 }}
       {{- end }}
       serviceAccountName: {{ include "_.sa.name" . }}
-      {{- with $i.Pod.securityContext }}
+      {{- with .Values.Deployment.Pod.securityContext }}
       securityContext:
         {{- toYaml . | nindent 8 }}
       {{- end }}
       containers:
         - name: {{ .Chart.Name }}
-          {{- with $i.Container.securityContext }}
+          {{- with .Values.Deployment.Container.securityContext }}
           securityContext:
             {{- toYaml . | nindent 12 }}
           {{- end }}
-          image: "{{ $i.Image.repository }}:{{ $i.Image.tag | default .Chart.AppVersion }}"
-          imagePullPolicy: {{ $i.Image.pullPolicy }}
+          image: "{{ .Values.Deployment.Image.repository }}:{{ .Values.Deployment.Image.tag | default .Chart.AppVersion }}"
+          imagePullPolicy: {{ .Values.Deployment.Image.pullPolicy }}
           ports:
             - name: http
               containerPort: {{ .Values.Network.Service.port }}
               protocol: TCP
-          {{- with $i.Probes.livenessProbe }}
+          {{- with .Values.Deployment.Probes.livenessProbe }}
           livenessProbe:
             {{- toYaml . | nindent 12 }}
           {{- end }}
-          {{- with $i.Probes.readinessProbe }}
+          {{- with .Values.Deployment.Probes.readinessProbe }}
           readinessProbe:
             {{- toYaml . | nindent 12 }}
           {{- end }}
-          {{- with $i.Resources }}
+          {{- with .Values.Deployment.Resources }}
           resources:
             {{- toYaml . | nindent 12 }}
           {{- end }}
-          {{- with $i.Storage.mounts }}
+          {{- with .Values.Deployment.Storage.mounts }}
           volumeMounts:
             {{- toYaml . | nindent 12 }}
           {{- end }}
-      {{- with $i.Storage.volumes }}
+      {{- with .Values.Deployment.Storage.volumes }}
       volumes:
         {{- toYaml . | nindent 8 }}
       {{- end }}
-      {{- with $i.Scheduling.nodeSelector }}
+      {{- with .Values.Deployment.Scheduling.nodeSelector }}
       nodeSelector:
         {{- toYaml . | nindent 8 }}
       {{- end }}
-      {{- with $i.Scheduling.affinity }}
+      {{- with .Values.Deployment.Scheduling.affinity }}
       affinity:
         {{- toYaml . | nindent 8 }}
       {{- end }}
-      {{- with $i.Scheduling.tolerations }}
+      {{- with .Values.Deployment.Scheduling.tolerations }}
       tolerations:
         {{- toYaml . | nindent 8 }}
       {{- end }}

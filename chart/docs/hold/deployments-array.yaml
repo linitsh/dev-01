@@ -1,0 +1,88 @@
+{{- if    .Values.Deployments -}}
+{{- range $index, $this := .Values.Deployments -}}
+{{- if    .include            -}}
+{{- $i    := index $.Values.Deployments $index -}}
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name  : &name {{ include "_.names.fullname" $ }}-{{ $index }}
+  labels:
+    {{- include "_.labels.standard" $ | nindent 4 }}
+spec:
+  {{- if not .Autoscaling.enabled }}
+  replicas: {{ .replicas }}
+  {{- end }}
+
+  selector:
+    matchLabels:
+      select: *name
+      {{- include "_.labels.match-labels" (dict "customLabels" .Pod.labels "context" $) | nindent 6 }}
+  template:
+    metadata:
+      {{- with .Pod.annotations }}
+      annotations:
+        {{- toYaml . | nindent 8 }}
+      {{- end }}
+      labels:
+        select: *name
+        {{- include "_.labels.standard" $ | nindent 8 }}
+        {{- with .Pod.labels }}
+        {{- toYaml . | nindent 8 }}
+        {{- end }}
+    spec:
+      {{- with .Image.pullSecrets }}
+      imagePullSecrets:
+        {{- toYaml . | nindent 8 }}
+      {{- end }}
+      serviceAccountName: {{ include "_.sa.name" $ }}
+      {{- with .Pod.securityContext }}
+      securityContext:
+        {{- toYaml . | nindent 8 }}
+      {{- end }}
+      containers:
+        - name: {{ $.Chart.Name }}
+          {{- with .Container.securityContext }}
+          securityContext:
+            {{- toYaml . | nindent 12 }}
+          {{- end }}
+          image: "{{ .Image.repository }}:{{ .Image.tag | default $.Chart.AppVersion }}"
+          imagePullPolicy: {{ .Image.pullPolicy }}
+          ports:
+            - name: http
+              containerPort: {{ $.Values.Network.Service.port }}
+              protocol: TCP
+          {{- with .Probes.livenessProbe }}
+          livenessProbe:
+            {{- toYaml . | nindent 12 }}
+          {{- end }}
+          {{- with .Probes.readinessProbe }}
+          readinessProbe:
+            {{- toYaml . | nindent 12 }}
+          {{- end }}
+          {{- with .Resources }}
+          resources:
+            {{- toYaml . | nindent 12 }}
+          {{- end }}
+          {{- with .Storage.mounts }}
+          volumeMounts:
+            {{- toYaml . | nindent 12 }}
+          {{- end }}
+      {{- with .Storage.volumes }}
+      volumes:
+        {{- toYaml . | nindent 8 }}
+      {{- end }}
+      {{- with .Scheduling.nodeSelector }}
+      nodeSelector:
+        {{- toYaml . | nindent 8 }}
+      {{- end }}
+      {{- with .Scheduling.affinity }}
+      affinity:
+        {{- toYaml . | nindent 8 }}
+      {{- end }}
+      {{- with .Scheduling.tolerations }}
+      tolerations:
+        {{- toYaml . | nindent 8 }}
+      {{- end }}
+{{- end -}}
+{{- end -}}
+{{- end -}}
