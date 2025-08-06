@@ -23,6 +23,7 @@ tasks:
   x:
     desc: ''
     cmds:
+    - task: doc-fill
     - task: doc-libs
     - task: doc-values
 

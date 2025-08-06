@@ -13,10 +13,10 @@ examples:
 
 {{- define "_.images.image" -}}
 
-    {{- $registryName := default .imageRoot.registry ((.global).imageRegistry) -}}
+    {{- $registryName   := default .imageRoot.registry ((.global).imageRegistry) -}}
     {{- $repositoryName := .imageRoot.repository -}}
-    {{- $separator := ":" -}}
-    {{- $termination := .imageRoot.tag | toString -}}
+    {{- $separator      := ":" -}}
+    {{- $termination    := .imageRoot.tag | toString -}}
 
     {{- if not .imageRoot.tag }}
         {{- if .chart }}

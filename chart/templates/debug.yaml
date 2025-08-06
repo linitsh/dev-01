@@ -1,0 +1,5 @@
+{{- if .Values.Setings.debug -}}
+_:
+  foo.list: {{ include "_.foo.list" (list "c" "b") }} 
+
+{{- end -}}

@@ -5,11 +5,11 @@
 # categories          : [ k8s, helm ]
 # ------------------------------------------------------------------
 
-deployment:
+Deployment:
 
-  replicaCount: 2
+  replicas: 2
 
-  resources:
+  Resources:
     requests:
       cpu: 200m
       memory: 256Mi

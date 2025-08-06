@@ -1,11 +1,18 @@
 # ------------------------------------------------------------------
-# yaml-language-server: $schema=values.schema.json
+#yaml-language-server: $schema=values.schema.json
 # title               : Default values for gold chart
 # tags                : [ chart ]
 # categories          : [ k8s, helm ]
 # ------------------------------------------------------------------
 # clear:^\s*##.*$
 
+## @section Setings
+## @descriptionStart
+## no desctiption.
+## @descriptionEnd
+Setings:
+  ## @param Setings.debug
+  debug: false
 
 ## @section global
 ## @descriptionStart
@@ -14,6 +21,7 @@
 global:
   ## @param global.some
   some: true
+
 
 
 ## @section Names
@@ -30,6 +38,14 @@ Names:
     ## @param Names.override.namespace
     namespace: ""
 
+## @section Security
+## @descriptionStart
+## no desctiption.
+## @descriptionEnd
+Security:
+  ## @param Security.include
+  include: false
+
 
 ## @section Deployment
 ## @descriptionStart
@@ -37,10 +53,9 @@ Names:
 ## @descriptionEnd
 Deployment:
   ## @param Deployment.test
-  test        : true
-  ## @param Deployment.replicaCount
-  replicaCount: 1
-
+  test    : false
+  ## @param Deployment.replicas
+  replicas: 1
 
   ## @section Deployment.Autoscaling - ``
   Autoscaling:
@@ -57,22 +72,28 @@ Deployment:
 
   ## @section Deployment.Image - ``
   Image:
-    ## @param Deployment.Image.pullSecrets
-    pullSecrets: []
     ## @param Deployment.Image.repository
     repository : nginx
-    ## @param Deployment.Image.pullPolicy
-    pullPolicy : IfNotPresent
     ## @param Deployment.Image.tag
     tag        : ""
+    ## @param Deployment.Image.pullPolicy
+    pullPolicy : IfNotPresent
+    ## @extra Deployment.Image.pullSecrets [array]
+    pullSecrets:
+      ## @param Deployment.Image.pullSecrets[0].name
+      - name: regcred
   
 
   ## @section Deployment.Pod - ``
   Pod:
-    ## @param Deployment.Pod.annotations
-    annotations    : {}
-    ## @param Deployment.Pod.labels
-    labels         : {}
+    ## @extra Deployment.Pod.annotations [object]
+    annotations    : 
+      ## @param Deployment.Pod.annotations.i
+      i: pod-annotation
+    ## @extra Deployment.Pod.labels [object]
+    labels         : 
+      ## @param Deployment.Pod.labels.i
+      i: pod-label
     ## @param Deployment.Pod.securityContext
     securityContext: {}
       # fsGroup       : 2000
@@ -92,14 +113,8 @@ Deployment:
 
   ## @section Deployment.Probes - ``
   Probes:
-    ## @extra Deployment.Probes.livenessProbe [object]
-    livenessProbe:
-      ## @extra Deployment.Probes.livenessProbe.httpGet [object]
-      httpGet:
-        ## @param Deployment.Probes.livenessProbe.httpGet.path
-        path: /
-        ## @param Deployment.Probes.livenessProbe.httpGet.port
-        port: http
+
+        
     ## @extra Deployment.Probes.readinessProbe [object]
     readinessProbe:
       ## @extra Deployment.Probes.readinessProbe.httpGet [object]
@@ -156,7 +171,8 @@ Deployment:
 ## no desctiption.
 ## @descriptionEnd
 Network:
-  
+  ## @param Network.include
+  include: true
 
   ## @section Network.Service - ``
   Service:
@@ -169,7 +185,7 @@ Network:
   ## @section Network.Ingress - ``
   Ingress:
     ## @param Network.Ingress.enabled
-    enabled     : false
+    enabled     : true
     ## @param Network.Ingress.className
     className   : ""
     ## @param Network.Ingress.annotations
@@ -181,7 +197,7 @@ Network:
     ## @section Network.Ingress.Hosts - ``
     Hosts:
       ## @param Network.Ingress.Hosts[0].host
-      - host: chart-example.local
+      - host: testy.loc
         ## @extra Network.Ingress.Hosts[0].paths [array]
         paths:
           ## @param Network.Ingress.Hosts[0].paths[0].path
@@ -201,14 +217,14 @@ Network:
 ## no desctiption.
 ## @descriptionEnd
 ServiceAccount:
-  ## @param ServiceAccount.create
-  create      : true
+  ## @param ServiceAccount.include
+  include     : false
+  ## @param ServiceAccount.name
+  name        : ""
   ## @param ServiceAccount.automount
   automount   : true
   ## @param ServiceAccount.annotations
   annotations : {}
-  ## @param ServiceAccount.name
-  name        : ""
 
 
 ## @section Configs
@@ -216,17 +232,31 @@ ServiceAccount:
 ## no desctiption.
 ## @descriptionEnd
 Configs:
+  ## @param Configs.include
+  include: false
   ## @extra Configs.files [object]
-  files:
+  files  :
 
     ## @param Configs.files.default_conf
-    default_conf: |-
+    default_conf : |-
       # inserted by --set-file
 
     ## @param Configs.files.index_html
-    index_html: |-
+    index_html   : |-
       # inserted by --set-file
 
     ## @param Configs.files.50x_html
-    50x_html: |-
+    50x_html     : |-
       # inserted by --set-file
+
+
+## @section Redis [object]
+Redis:
+  ## @skip Redis.enabled
+  enabled: false
+
+
+## @section Common [object]
+Common:
+  ## @skip Common.enabled
+  enabled: false

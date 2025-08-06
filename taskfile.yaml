@@ -7,55 +7,29 @@ env     :
 
 includes:
   clin:
+    aliases : [c]
     taskfile: tools/clin.yaml 
-
+  helm:
+    aliases : [h]
+    taskfile: tools/helm.yaml 
+  git:
+    aliases : [g]
+    taskfile: tools/git.yaml 
 
 tasks:
-
-  template:
-    desc   : 'template'
-    aliases: [tpl, t]
-    silent : true
-    vars:
-      RELEASE_NAME : test-chart
-      PATH_TO_CHART: chart
-      FLAGS        : '--debug'
-      FILES        : '' #'--set-file cfg.index\\.html=chart/files/index.html --set-file cfg.default\\.conf=fchart/iles/default.conf --set-file cfg.50x\\.html=chart/files/50x.html'
-    cmds:
-    - helm template {{ .RELEASE_NAME }} {{ .PATH_TO_CHART }} {{ .FLAGS }} {{ .FILES }} > logs/tpl.yaml 
-  
+  default: task -a | grep '{{.CLI_ARGS}}' | awk '{ print $2 }' | sed 's/.$//' | sed 's/^/task /'
   watch:
     aliases: [w]
-    silent : true
+    dir    : '{{ .TASKFILE_DIR }}'
+    silent : false
     watch  : true
     sources:
-      - 'chart/files/**/*.*'
+      # - '**/chart/files/**/*.*'
       - 'chart/templates/**/*.*'
-      - '**/chart/*.{yaml,json}'
+      # - '**/chart/*.{yaml,json}'
     cmds:
-    - task: template
+    - echo "Watching for changes in {{ .TASKFILE_DIR }}..."
+    - task: helm:template
 
-  pull-subcharts:
-    aliases: [ps]
-    silent : true
-    vars:
-      PATH_TO_CHART: chart
-    cmds:
-    - rm -rf {{ .PATH_TO_CHART }}/charts/*
-    - helm dependency update {{ .PATH_TO_CHART }}
-    - task: unizip-rm
-    
-  unzip-rm:
-    prompt  : unzip subcharts ?
-    dir     : '{{.TASKFILE_DIR}}/chart/charts'
-    internal: true
-    cmds:
-    - cat *.tgz | tar -xvzf  - -i 
-    - rm -rf     *.tgz
 
-  push:
-    cmds:
-    - git add .
-    - git commit -m "update"
-    - git push gl main
-    - git push gh main
+

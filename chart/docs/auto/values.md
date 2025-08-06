@@ -5,8 +5,10 @@ categories: []
 ---
 ---
 ### Parameters <a name="rootcontents"></a>
+- [Setings](#setings)
 - [global](#global)
 - [Names](#names)
+- [Security](#security)
 - [Deployment](#deployment)
   - [Autoscaling](#deploymentautoscaling)
   - [Image](#deploymentimage)
@@ -22,7 +24,18 @@ categories: []
     - [Hosts](#networkingresshosts)
 - [ServiceAccount](#serviceaccount)
 - [Configs](#configs)
+- [Redis](#redis)
+- [Common](#common)
+ <a name="rootcontents"></a>
 
+___
+#### [^](#rootcontents)<a name="setings"></a> Setings
+
+no desctiption.
+
+| Name            | Description | Value   |
+| --------------- | ----------- | ------- |
+| `Setings.debug` |             | `false` |
 
 ___
 #### [^](#rootcontents)<a name="global"></a> global
@@ -46,14 +59,23 @@ no desctiption.
 | `Names.override.namespace` |             | `""`  |
 
 ___
+#### [^](#rootcontents)<a name="security"></a> Security
+
+no desctiption.
+
+| Name               | Description | Value   |
+| ------------------ | ----------- | ------- |
+| `Security.include` |             | `false` |
+
+___
 #### [^](#rootcontents)<a name="deployment"></a> Deployment
 
 no desctiption.
 
-| Name                      | Description | Value  |
-| ------------------------- | ----------- | ------ |
-| `Deployment.test`         |             | `true` |
-| `Deployment.replicaCount` |             | `1`    |
+| Name                  | Description | Value   |
+| --------------------- | ----------- | ------- |
+| `Deployment.test`     |             | `false` |
+| `Deployment.replicas` |             | `1`     |
 
 ___
 #### [^](#rootcontents)<a name="deploymentautoscaling"></a> Deployment.Autoscaling - ``
@@ -68,21 +90,24 @@ ___
 ___
 #### [^](#rootcontents)<a name="deploymentimage"></a> Deployment.Image - ``
 
-| Name                           | Description | Value          |
-| ------------------------------ | ----------- | -------------- |
-| `Deployment.Image.pullSecrets` |             | `[]`           |
-| `Deployment.Image.repository`  |             | `nginx`        |
-| `Deployment.Image.pullPolicy`  |             | `IfNotPresent` |
-| `Deployment.Image.tag`         |             | `""`           |
+| Name                                   | Description | Value          |
+| -------------------------------------- | ----------- | -------------- |
+| `Deployment.Image.repository`          |             | `nginx`        |
+| `Deployment.Image.tag`                 |             | `""`           |
+| `Deployment.Image.pullPolicy`          |             | `IfNotPresent` |
+| `Deployment.Image.pullSecrets`         |             |                |
+| `Deployment.Image.pullSecrets[0].name` |             | `regcred`      |
 
 ___
 #### [^](#rootcontents)<a name="deploymentpod"></a> Deployment.Pod - ``
 
-| Name                             | Description | Value |
-| -------------------------------- | ----------- | ----- |
-| `Deployment.Pod.annotations`     |             | `{}`  |
-| `Deployment.Pod.labels`          |             | `{}`  |
-| `Deployment.Pod.securityContext` |             | `{}`  |
+| Name                             | Description | Value            |
+| -------------------------------- | ----------- | ---------------- |
+| `Deployment.Pod.annotations`     |             |                  |
+| `Deployment.Pod.annotations.i`   |             | `pod-annotation` |
+| `Deployment.Pod.labels`          |             |                  |
+| `Deployment.Pod.labels.i`        |             | `pod-label`      |
+| `Deployment.Pod.securityContext` |             | `{}`             |
 
 ___
 #### [^](#rootcontents)<a name="deploymentcontainer"></a> Deployment.Container - ``
@@ -96,10 +121,6 @@ ___
 
 | Name                                            | Description | Value  |
 | ----------------------------------------------- | ----------- | ------ |
-| `Deployment.Probes.livenessProbe`               |             |        |
-| `Deployment.Probes.livenessProbe.httpGet`       |             |        |
-| `Deployment.Probes.livenessProbe.httpGet.path`  |             | `/`    |
-| `Deployment.Probes.livenessProbe.httpGet.port`  |             | `http` |
 | `Deployment.Probes.readinessProbe`              |             |        |
 | `Deployment.Probes.readinessProbe.httpGet`      |             |        |
 | `Deployment.Probes.readinessProbe.httpGet.path` |             | `/`    |
@@ -139,6 +160,9 @@ ___
 
 no desctiption.
 
+| Name              | Description | Value  |
+| ----------------- | ----------- | ------ |
+| `Network.include` |             | `true` |
 
 ___
 #### [^](#rootcontents)<a name="networkservice"></a> Network.Service - ``
@@ -151,18 +175,18 @@ ___
 ___
 #### [^](#rootcontents)<a name="networkingress"></a> Network.Ingress - ``
 
-| Name                          | Description | Value   |
-| ----------------------------- | ----------- | ------- |
-| `Network.Ingress.enabled`     |             | `false` |
-| `Network.Ingress.className`   |             | `""`    |
-| `Network.Ingress.annotations` |             | `{}`    |
+| Name                          | Description | Value  |
+| ----------------------------- | ----------- | ------ |
+| `Network.Ingress.enabled`     |             | `true` |
+| `Network.Ingress.className`   |             | `""`   |
+| `Network.Ingress.annotations` |             | `{}`   |
 
 ___
 #### [^](#rootcontents)<a name="networkingresshosts"></a> Network.Ingress.Hosts - ``
 
 | Name                                         | Description | Value                    |
 | -------------------------------------------- | ----------- | ------------------------ |
-| `Network.Ingress.Hosts[0].host`              |             | `chart-example.local`    |
+| `Network.Ingress.Hosts[0].host`              |             | `testy.loc`              |
 | `Network.Ingress.Hosts[0].paths`             |             |                          |
 | `Network.Ingress.Hosts[0].paths[0].path`     |             | `/`                      |
 | `Network.Ingress.Hosts[0].paths[0].pathType` |             | `ImplementationSpecific` |
@@ -173,12 +197,12 @@ ___
 
 no desctiption.
 
-| Name                         | Description | Value  |
-| ---------------------------- | ----------- | ------ |
-| `ServiceAccount.create`      |             | `true` |
-| `ServiceAccount.automount`   |             | `true` |
-| `ServiceAccount.annotations` |             | `{}`   |
-| `ServiceAccount.name`        |             | `""`   |
+| Name                         | Description | Value   |
+| ---------------------------- | ----------- | ------- |
+| `ServiceAccount.include`     |             | `false` |
+| `ServiceAccount.name`        |             | `""`    |
+| `ServiceAccount.automount`   |             | `true`  |
+| `ServiceAccount.annotations` |             | `{}`    |
 
 ___
 #### [^](#rootcontents)<a name="configs"></a> Configs
@@ -187,8 +211,17 @@ no desctiption.
 
 | Name                         | Description | Value                      |
 | ---------------------------- | ----------- | -------------------------- |
+| `Configs.include`            |             | `false`                    |
 | `Configs.files`              |             |                            |
 | `Configs.files.default_conf` |             | `# inserted by --set-file` |
 | `Configs.files.index_html`   |             | `# inserted by --set-file` |
 | `Configs.files.50x_html`     |             | `# inserted by --set-file` |
+
+___
+#### [^](#rootcontents)<a name="redis"></a> Redis [object]
+
+
+___
+#### [^](#rootcontents)<a name="common"></a> Common [object]
+
 

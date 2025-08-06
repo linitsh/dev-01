@@ -5,7 +5,7 @@
 # categories          : [ k8s, helm ]
 # ------------------------------------------------------------------
 
-deployment:
-  image:
+Deployment:
+  Image:
     repository: "registry.gitlab.com/argocd9135324/app-01"
     tag       : "0.0.8"

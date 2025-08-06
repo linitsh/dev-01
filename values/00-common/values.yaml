@@ -5,5 +5,5 @@
 # categories          : [ k8s, helm ]
 # ------------------------------------------------------------------
 
-deployment:
-  replicaCount: 1
+Deployment:
+  replicas: 1

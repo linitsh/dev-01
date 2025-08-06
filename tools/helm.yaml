@@ -1,6 +1,37 @@
 # yaml-language-server: $schema=https://json.schemastore.org/taskfile.json
 version: '3'
-includes:
-  helm:
-    taskfile: helm
 
+tasks:
+
+
+  pull:
+    aliases: [ps]
+    silent : true
+    dir    : '{{.ROOT_DIR}}'
+    cmds:
+    - helm repo update
+    - rm -rf chart/charts/*
+    - helm dependency update chart
+    - task: unzip-rm
+    
+  unzip-rm:
+    prompt  : unzip subcharts ?
+    dir     : '{{.ROOT_DIR}}/chart/charts'
+    internal: true
+    cmds:
+    - cat *.tgz | tar -xvzf  - -i 
+    - rm -rf     *.tgz
+
+  template:
+    desc   : 'template'
+    dir    : '{{.ROOT_DIR}}'
+    aliases: [tpl, t]
+    silent : true
+    vars:
+      OUTPUT       : '{{.ROOT_DIR}}/logs/tpl.yaml'
+      RELEASE_NAME : test-chart
+      PATH_TO_CHART: chart
+      FLAGS        : '--debug'
+      FILES        : '' #'--set-file cfg.index\\.html=chart/files/index.html --set-file cfg.default\\.conf=fchart/iles/default.conf --set-file cfg.50x\\.html=chart/files/50x.html'
+    cmds:
+    - helm template {{ .RELEASE_NAME }} {{ .PATH_TO_CHART }} {{ .FLAGS }} {{ .FILES }} > {{ .OUTPUT }}

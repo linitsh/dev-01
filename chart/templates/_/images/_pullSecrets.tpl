@@ -8,13 +8,14 @@ params:
 examples: 
 - simple: |-
     keys: 
-      {{ include "_.images.pullSecrets" ( dict "images" (list .Values.path.to.the.image1, .Values.path.to.the.image2) "global" .Values.global) }}
+      {{- include "_.images.pullSecrets" ( dict "images" (list .Values.path.to.the.image1, .Values.path.to.the.image2) "global" .Values.global) }}
   result: |-
     keys: 
       key: unknown
 */}}
 
 {{- define "_.images.pullSecrets" -}}
+
   {{- $pullSecrets := list }}
 
   {{- range ((.global).imagePullSecrets) -}}
@@ -36,9 +37,9 @@ examples:
   {{- end -}}
 
   {{- if (not (empty $pullSecrets)) -}}
-imagePullSecrets:
-    {{- range $pullSecrets | uniq }}
-  - name: {{ . }}
-    {{- end }}
+      imagePullSecrets:
+          {{- range $pullSecrets | uniq }}
+        - name: {{ . }}
+          {{- end }}
   {{- end }}
 {{- end -}}

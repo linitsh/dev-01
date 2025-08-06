@@ -1,0 +1,12 @@
+# yaml-language-server: $schema=https://json.schemastore.org/taskfile.json
+version: '3'
+tasks:
+
+  push:
+    aliases: [p]
+    dir : '{{.ROOT_DIR}}'
+    cmds:
+    - git add .
+    - git commit -m "update"
+    - git push gl main
+    - git push gh main

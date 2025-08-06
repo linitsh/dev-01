@@ -1,5 +1,6 @@
-kind: ConfigMap
+{{- if .Values.Configs.include -}}
 apiVersion: v1
+kind: ConfigMap
 metadata:
   name: {{ include "_.names.fullname" . }}
   namespace: default
@@ -8,3 +9,5 @@ data:
   {{ $name | replace  "_" "." }}: {{ print "|-" }}
     {{- $value | nindent 4 }}
 {{- end }}
+
+{{- end -}}

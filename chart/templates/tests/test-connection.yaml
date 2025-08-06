@@ -1,4 +1,4 @@
-
+{{- if not .Values.Setings.debug -}}
 {{- if .Values.Deployment.test }}
 
 apiVersion: v1
@@ -24,4 +24,5 @@ spec:
           cpu: 100m
           memory: 128Mi
 
+{{- end  }}
 {{- end  }}

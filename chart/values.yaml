@@ -6,16 +6,13 @@
 # ------------------------------------------------------------------
 # clear:^\s*##.*$
 
+Setings:
+  debug: false
 
 global:
   some: true
 
 
-Common:
-  labels: {}
-
-  Extra:
-    labels: {}
 
 Names:
   override:
@@ -23,10 +20,12 @@ Names:
     fullname : ""
     namespace: ""
 
+Security:
+  include: false
 
 
 Deployment:
-  test    : true
+  test    : false
   replicas: 1
 
   Autoscaling:
@@ -38,10 +37,11 @@ Deployment:
     
 
   Image:
-    pullSecrets: []
     repository : nginx
-    pullPolicy : IfNotPresent
     tag        : ""
+    pullPolicy : IfNotPresent
+    pullSecrets:
+      - name: regcred
   
 
   Pod:
@@ -64,10 +64,8 @@ Deployment:
 
 
   Probes:
-    livenessProbe:
-      httpGet:
-        path: /
-        port: http
+
+        
     readinessProbe:
       httpGet:
         path: /
@@ -102,7 +100,7 @@ Deployment:
 
 
 Network:
-  
+  include: true
 
   Service:
     type : ClusterIP
@@ -110,7 +108,7 @@ Network:
 
 
   Ingress:
-    enabled     : false
+    enabled     : true
     className   : ""
     annotations : {}
       # kubernetes.io/ingress.class: nginx
@@ -118,7 +116,7 @@ Network:
 
 
     Hosts:
-      - host: chart-example.local
+      - host: testy.loc
         paths:
           - path     : /
             pathType : ImplementationSpecific
@@ -130,14 +128,15 @@ Network:
 
 
 ServiceAccount:
-  create      : true
+  include     : false
   name        : ""
   automount   : true
   annotations : {}
 
 
 Configs:
-  files:
+  include: false
+  files  :
 
     default_conf : |-
       # inserted by --set-file
@@ -149,5 +148,8 @@ Configs:
       # inserted by --set-file
 
 
-redis:
+Redis:
+  enabled: false
+
+Common:
   enabled: false
