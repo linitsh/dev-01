@@ -2,9 +2,6 @@
 version : '3'
 interval: 500ms
 dotenv  : [.env]
-env     :
-  CWD   : '{{ .ROOT_DIR }}'
-
 includes:
   clin:
     aliases : [c]
@@ -18,17 +15,18 @@ includes:
 
 tasks:
   default: task -a | grep '{{.CLI_ARGS}}' | awk '{ print $2 }' | sed 's/.$//' | sed 's/^/task /'
+  
   watch:
-    aliases: [w]
-    dir    : '{{ .TASKFILE_DIR }}'
-    silent : false
-    watch  : true
-    sources:
+    desc    : ''
+    aliases : [w]
+    silent  : false
+    dir     : '{{ .TASKFILE_DIR }}'
+    watch   : true
+    sources :
       # - '**/chart/files/**/*.*'
       - 'chart/templates/**/*.*'
       # - '**/chart/*.{yaml,json}'
     cmds:
-    - echo "Watching for changes in {{ .TASKFILE_DIR }}..."
     - task: helm:template
 
 

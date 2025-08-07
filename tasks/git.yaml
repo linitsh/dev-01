@@ -3,9 +3,10 @@ version: '3'
 tasks:
 
   push:
+    desc   : ''
     aliases: [p]
-    dir : '{{.ROOT_DIR}}'
-    cmds:
+    dir    : '{{.ROOT_DIR}}'
+    cmds   :
     - git add .
     - git commit -m "update"
     - git push gl main

@@ -3,21 +3,24 @@ version: '3'
 tasks:
 
   doc-values:
-    dir : '{{ .ROOT_DIR }}'
-    desc: ''
-    cmds:
+    desc    : ''
+    aliases : [ v ]
+    dir     : '{{ .ROOT_DIR }}'
+    cmds    : 
     - clin helm doc values -v chart/fill.values.yaml -r chart/docs/auto/values.md -s chart/values.schema.json
 
   doc-libs:
-    dir : '{{ .ROOT_DIR }}'
-    desc: ''
-    cmds:
+    desc    : ''
+    aliases : [ l ]
+    dir     : '{{ .ROOT_DIR }}'
+    cmds    : 
     - clin helm doc libs -l chart/templates/_  -r chart/docs/auto/libs.md
 
   doc-fill:
-    dir : '{{ .ROOT_DIR }}'
-    desc: ''
-    cmds:
+    desc    : ''
+    aliases : [ f ]
+    dir     : '{{ .ROOT_DIR }}'
+    cmds    :
     - clin helm doc fill -v chart/values.yaml > chart/fill.values.yaml
 
   x:

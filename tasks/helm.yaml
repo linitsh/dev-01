@@ -5,6 +5,7 @@ tasks:
 
 
   pull:
+    desc   : ''
     aliases: [ps]
     silent : true
     dir    : '{{.ROOT_DIR}}'
@@ -15,18 +16,19 @@ tasks:
     - task: unzip-rm
     
   unzip-rm:
+    desc    : ''
     prompt  : unzip subcharts ?
-    dir     : '{{.ROOT_DIR}}/chart/charts'
     internal: true
+    dir     : '{{.ROOT_DIR}}/chart/charts'
     cmds:
     - cat *.tgz | tar -xvzf  - -i 
     - rm -rf     *.tgz
 
   template:
     desc   : 'template'
-    dir    : '{{.ROOT_DIR}}'
-    aliases: [tpl, t]
+    aliases: [ t ]
     silent : true
+    dir    : '{{.ROOT_DIR}}'
     vars:
       OUTPUT       : '{{.ROOT_DIR}}/logs/tpl.yaml'
       RELEASE_NAME : test-chart
