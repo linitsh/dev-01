@@ -36,10 +36,10 @@ examples:
     {{- end -}}
   {{- end -}}
 
-  {{- if (not (empty $pullSecrets)) -}}
-      imagePullSecrets:
-          {{- range $pullSecrets | uniq }}
-        - name: {{ . }}
-          {{- end }}
-  {{- end }}
+    {{- if (not (empty $pullSecrets)) -}}
+imagePullSecrets:
+        {{- range $pullSecrets | uniq }}
+  - name: {{ . }}
+        {{- end }}
+    {{- end }}
 {{- end -}}

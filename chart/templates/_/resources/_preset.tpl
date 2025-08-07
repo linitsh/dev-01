@@ -8,7 +8,7 @@ params: [ type ]
 examples: 
 - simple: |-
     keys: 
-      {{- include "_.resources.preset" (dict "type" "nano") | nindent 4 }}
+      {{- include "_.resources-preset" (dict "type" "nano") | nindent 4 }}
   result: |-
     keys:
       limits:
@@ -21,7 +21,7 @@ examples:
         memory: 128Mi
 */}}
 
-{{- define "_.resources.preset" -}}
+{{- define "_.resources-preset" -}}
 {{- $presets := dict 
   "nano" (dict 
       "requests" (dict "cpu" "100m" "memory" "128Mi" "ephemeral-storage" "50Mi")

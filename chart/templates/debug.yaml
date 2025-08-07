@@ -1,5 +1,171 @@
-{{- if .Values.Setings.debug -}}
+{{- if .Values.Settings.debug -}}
 _:
   foo.list: {{ include "_.foo.list" (list "c" "b") }} 
+  fool.dic: {{ include "_.foo.dict" (dict "param1" "a" "param2" "b")  }}
+
+---
+names:
+  chart  : {{ include "_.names.chart-name-version" . }}
+  dep.fn : {{ include "_.names.fullname-dependency" (dict "chartName" "Redis" "chartValues" .Values.Redis "context" $) }}
+  fns    : {{ include "_.names.fullname-namespace" . }}
+  fn     : {{ include "_.names.fullname" . }}
+  name   : {{ include "_.names.name" . }}
+  ns     : {{ include "_.names.namespace" . }}
+
+---
+labels:
+
+  standard: 
+    {{- include "_.labels.standard" . | nindent 4 }}
+  
+  matchLabels: 
+    {{- include "_.labels.match-labels" . | nindent 4 }}
+
+  matchLabels.param: 
+    {{- include "_.labels.match-labels" (dict "customLabels" .Values.Deployment.Pod.labels "context" $) | nindent 4 }}
+
+---
+resources:
+  preset:
+    {{- include "_.resources-preset" (dict "type" "nano") | nindent 4 }}
+  
+---
+affinities:
+  topologyKey:
+    {{ include "_.affinities.topologyKey" (dict "topologyKey" "BAR") -}} : value
+  nodes:
+    x:
+      {{- include "_.affinities.nodes" (dict "type" "soft" "key" "FOO" "values" (list "BAR" "BAZ")) | nindent 6 }}
+      
+    soft:
+      {{- include "_.affinities.nodes.soft" (dict "key" "FOO" "values" (list "BAR" "BAZ")) | nindent 6 }}
+  
+    hard:
+      {{- include "_.affinities.nodes.hard" (dict "key" "FOO" "values" (list "BAR" "BAZ")) | nindent 6 }}
+
+  pods:
+    {{- $dict := (dict "component" "FOO" "customLabels" .Values.Deployment.Pod.labels "extraMatchLabels" .Values.Shared.extra.matchLabels "topologyKey" "BAR" "extraPodAffinityTerms" .Values.Shared.extra.podAffinityTerms "extraNamespaces" (list "namespace1" "namespace2") "context" $)  }}
+    x:
+      {{- include "_.affinities.pods" (merge (dict "type" "soft") $dict) | nindent 6 }}
+
+    soft:
+      {{- include "_.affinities.pods.soft" $dict | nindent 6 }}
+
+    hard:
+      {{- include "_.affinities.pods.hard" $dict | nindent 6 }}
+  
+---
+capabilities:
+
+  apiVersion:
+    has: # {{/* include "_.capabilities.apiVersions.has" . */}}
+    policy: {{ include "_.capabilities.policy.apiVersion" . }}
+    networkPolicy: {{ include "_.capabilities.networkPolicy.apiVersion" . }}
+    job: {{ include "_.capabilities.job.apiVersion" . }}
+    cronjob: {{ include "_.capabilities.cronjob.apiVersion" . }}
+    daemonset: {{ include "_.capabilities.daemonset.apiVersion" . }}
+    deployment: {{ include "_.capabilities.deployment.apiVersion" . }}
+    statefulset: {{ include "_.capabilities.statefulset.apiVersion" . }}
+    ingress: {{ include "_.capabilities.ingress.apiVersion" . }}
+    rbac: {{ include "_.capabilities.rbac.apiVersion" . }}
+    crd: {{ include "_.capabilities.crd.apiVersion" . }}
+    apiService: {{ include "_.capabilities.apiService.apiVersion" . }}
+    hpa: # {{/* include "_.capabilities.hpa.apiVersion" . */}}
+    vpa: # {{/* include "_.capabilities.vpa.apiVersion" . */}}
+    admissionConfiguration: {{ include "_.capabilities.admissionConfiguration.apiVersion" . }} # false
+    podSecurityConfiguration: {{ include "_.capabilities.podSecurityConfiguration.apiVersion" . }} # false
+  
+  support:
+    admissionConfiguration: {{ include "_.capabilities.admissionConfiguration.supported" . }} # false
+    HelmVersion: {{ include "_.capabilities.supportsHelmVersion" . }} # false
+    psp: {{ include "_.capabilities.psp.supported" . }} # false
+
+  
+  compatibility:
+    kubeVersion: {{ include "_.capabilities.kubeVersion" . }}
+    isOpenshift: {{ include "_.compatibility.isOpenshift" . -}} # false
+    renderSecurityContext: # not worked
+      {{/*- include "_.compatibility.renderSecurityContext" (dict "secContext" .Values.Deployment.Container.securityContext "context" $) -*/}}
+
+---
+images:
+  {{- $Image := .Values.Deployment.Image }}
+  image: {{ include "_.images.image" ( dict "imageRoot" $Image "global" .Values.global "chart" .Chart ) }}
+  version: {{ include "_.images.version" ( dict "imageRoot" $Image "chart" .Chart ) }}
+  pullSecrets: 
+    {{- include "_.images.pullSecrets" ( dict "images" (list $Image) "global" .Values.global) | nindent 4 }} # not work
+  renderPullSecrets: 
+    {{- include "_.images.renderPullSecrets" ( dict "images" (list $Image) "context" $) | nindent 4 }} # not work
+---
+ingress:
+  backend:
+    {{- include "_.ingress.backend" (dict "serviceName" "backendName" "servicePort" "backendPort" "context" $) | nindent 6 }}
+  supportsPathType: {{ include "_.ingress.supportsPathType" . }}
+  supportsIngressClassname: {{ include "_.ingress.supportsIngressClassname" . }}
+  certManagerRequest: {{ include "_.ingress.certManagerRequest" ( dict "annotations" .Values.Network.Ingress ) }} # false ?
+---
+storage:
+  class: {{/* include "_.storage.class" ( dict "persistence" .Values.path.to.the.persistence "global" $) */}} # nw
+
+---
+secrets:
+  # if empty then generate else value
+  key : {{ include "_.secrets.key" (dict "existingSecret" .Values.Settings.existingSecret "key" "keyName") }}
+  name: {{ include "_.secrets.name" (dict "existingSecret" .Values.Settings.existingSecret "defaultNameSuffix" "mySuffix" "context" $) }}
+  passwords.manage: {{ include "_.secrets.passwords.manage" (dict "secret" "secret-name" "key" "keyName" "providedValues" (list "Settings.password1" "Settings.password2") "length" 10 "strong" false "chartName" "chartName" "honorProvidedValues" false "context" $) }}
+  lookup: {{ include "_.secrets.lookup" (dict "secret" "secret-name" "key" "keyName" "defaultValue" .Values.Settings.value1 "context" $) }} # ?
+  exists: {{ include "_.secrets.exists" (dict "secret" "secret-name" "context" $) }} # ?
+
+---
+tpl.values:
+  {{- $Lib := .Values.Settings }}
+  render1.value: {{ include "_.tplvalues.render" ( dict "value" $Lib.value1 "context" $ ) }}
+  render2.scope: {{/* include "_.tplvalues.render" ( dict "value" $Lib.value2  "context" $ "scope" $app ) */}} # scope? $app?
+  merge: 
+    {{- include "_.tplvalues.merge" ( dict "values" (list $Lib.merge1 $Lib.merge2) "context" $ ) | nindent 4 }}
+  merge-overwrite:
+    {{- include "_.tplvalues.merge-overwrite" ( dict "values" (list $Lib.merge1 $Lib.merge2) "context" $ ) | nindent 4 }}
+
+---
+utils:
+  secret.getvalue : {{ include "_.utils.secret.getvalue" (dict "secret" "secret-name" "field" "secret-value-field" "context" $) }}
+  fieldToEnvVar   : {{ include "_.utils.fieldToEnvVar" (dict "field" "any-value" ) }}
+  getValueFromKey : {{ include "_.utils.getValueFromKey" (dict "key" "Settings.key" "context" $) }}
+  getKeyFromList  : {{ include "_.utils.getKeyFromList" (dict "keys" (list "Settings.value1" "Settings.key") "context" $) }} # ??
+  checksumTemplate: {{ include "_.utils.checksumTemplate" (dict "path" "/configs/cm-files.yaml" "context" $) }}
+
+---
+validations:
+  values.single.empty: |-
+    {{- include "_.validations.values.single.empty" (dict "valueKey" "Settings.password"  "context" $) | nindent 6 }}
+  
+  values.multiple.empty: |-
+    {{- $validateValueConf00 := (dict "valueKey" "Settings.valid.value1" ) -}}
+    {{- $validateValueConf01 := (dict "valueKey" "Settings.valid.value2" ) -}}
+    {{- include "_.validations.values.multiple.empty" (dict "required" (list $validateValueConf00 $validateValueConf01) "context" $) | nindent 6 }}
+
+---
+report:
+  warnings:
+    # if image repo has "bitnami/"
+    rollingTag: |-
+      {{- include "_.warnings.rollingTag" .Values.Deployment.Image | nindent 6 }} # ?
+    
+    modifiedImages: |-
+      {{- include "_.warnings.modifiedImages" (dict "images" (list .Values.Deployment.Image ) "context" $) | nindent 6 }}
+    
+    resources: |-
+      {{- include "_.warnings.resources" (dict "sections" (list "Settings.csiProvider.provider" "Settings.server" "") "context" $) | nindent 6 }}
+
+  errors:
+    # if Release.IsUpgrade and errors then fail
+    upgrade.passwords.empty: |-
+      {{- $validationError00 := include "_.validations.values.single.empty" (dict "valueKey" "Settings.valid.value1" "context" $) -}}
+      {{- $validationError01 := include "_.validations.values.single.empty" (dict "valueKey" "Settings.valid.value2" "context" $) -}}
+      {{- include "_.errors.upgrade.passwords.empty" (dict "validationErrors" (list $validationError00 $validationError01) "context" $) | nindent 6 }}
+
+    # if image.registry: "docker.io" ok if "docker.io2" bad
+    insecureImages: |-
+      {{- include "_.errors.insecureImages" (dict "images" (list .Values.Deployment.Image ) "context" $) | nindent 6 }}
 
 {{- end -}}

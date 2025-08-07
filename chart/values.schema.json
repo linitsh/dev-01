@@ -11,7 +11,7 @@
           "default": false
         }
       },
-      "additionalProperties": false
+      "additionalProperties": true
     },
     "global": {
       "type": "object",
@@ -22,7 +22,7 @@
           "default": true
         }
       },
-      "additionalProperties": false
+      "additionalProperties": true
     },
     "Names": {
       "type": "object",
@@ -134,7 +134,7 @@
               }
             }
           },
-          "additionalProperties": false
+          "additionalProperties": true
         },
         "Pod": {
           "type": "object",

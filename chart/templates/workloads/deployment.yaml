@@ -1,4 +1,4 @@
-{{- if not .Values.Setings.debug -}}
+{{- if not .Values.Settings.debug -}}
 {{- $i := .Values.Deployment -}}
 apiVersion: apps/v1
 kind: Deployment

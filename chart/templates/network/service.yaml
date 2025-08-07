@@ -1,4 +1,4 @@
-{{- if not .Values.Setings.debug -}}
+{{- if not .Values.Settings.debug -}}
 {{- if .Values.Network.include -}}
 apiVersion: v1
 kind: Service

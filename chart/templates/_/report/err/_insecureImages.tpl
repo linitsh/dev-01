@@ -8,22 +8,22 @@ Usage:
 */}}
 {{- define "_.errors.insecureImages" -}}
 {{- $relocatedImages := list -}}
-{{- $replacedImages := list -}}
-{{- $retaggedImages := list -}}
-{{- $globalRegistry := ((.context.Values.global).imageRegistry) -}}
-{{- $originalImages := .context.Chart.Annotations.images -}}
+{{- $replacedImages  := list -}}
+{{- $retaggedImages  := list -}}
+{{- $globalRegistry  := ((.context.Values.global).imageRegistry) -}}
+{{- $chartAllowedImages  := .context.Chart.Annotations.allowedImages -}}
 {{- range .images -}}
   {{- $registryName := default .registry $globalRegistry -}}
   {{- $fullImageNameNoTag := printf "%s/%s" $registryName .repository -}}
   {{- $fullImageName := printf "%s:%s" $fullImageNameNoTag .tag -}}
-  {{- if not (contains $fullImageNameNoTag $originalImages) -}}
-    {{- if not (contains $registryName $originalImages) -}}
+  {{- if not (contains $fullImageNameNoTag $chartAllowedImages) -}}
+    {{- if not (contains $registryName $chartAllowedImages) -}}
       {{- $relocatedImages = append $relocatedImages $fullImageName  -}}
-    {{- else if not (contains .repository $originalImages) -}}
+    {{- else if not (contains .repository $chartAllowedImages) -}}
       {{- $replacedImages = append $replacedImages $fullImageName  -}}
     {{- end -}}
   {{- end -}}
-  {{- if not (contains (printf "%s:%s" .repository .tag) $originalImages) -}}
+  {{- if not (contains (printf "%s:%s" .repository .tag) $chartAllowedImages) -}}
     {{- $retaggedImages = append $retaggedImages $fullImageName  -}}
   {{- end -}}
 {{- end -}}
@@ -36,7 +36,7 @@ Usage:
   {{- range (concat $relocatedImages $replacedImages) -}}
     {{- $errorString = print $errorString "\n  - " . -}}
   {{- end -}}
-  {{- if or (contains "docker.io/bitnami/" $originalImages) (contains "docker.io/bitnamiprem/" $originalImages) -}}
+  {{- if or (contains "docker.io/bitnami/" $chartAllowedImages) (contains "docker.io/bitnamiprem/" $chartAllowedImages) -}}
     {{- $errorString = print "\n\n⚠ ERROR: " $errorString -}}
     {{- $errorString = print $errorString "\n\nIf you are sure you want to proceed with non-standard containers, you can skip container image verification by setting the global parameter 'global.security.allowInsecureImages' to true." -}}
     {{- $errorString = print $errorString "\nFurther information can be obtained at https://github.com/bitnami/charts/issues/30850" -}}

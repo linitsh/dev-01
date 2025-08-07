@@ -35,8 +35,8 @@ examples:
         
         {{- $getName   := include "_.names.name" .context                 -}}
         {{- $dict2     := dict 
-              "app.kubernetes.io/name"      $getName 
-              "app.kubernetes.io/instance" .context.Release.Name
+            "app.kubernetes.io/name"      $getName 
+            "app.kubernetes.io/instance" .context.Release.Name
         -}}
 
         {{- merge $pick $dict2  | toYaml -}}

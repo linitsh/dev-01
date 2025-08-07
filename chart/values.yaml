@@ -6,13 +6,37 @@
 # ------------------------------------------------------------------
 # clear:^\s*##.*$
 
-Setings:
-  debug: false
+Settings:
+  debug: true
+  key: "somekey"
+  existingSecret: ""
+  password1: ""
+  password2: ""
+  value1: "a"
+  value2: "b"
+  merge1:
+    app: "a"
+  merge2:
+    app: "b"
+    cpp: "c"
+  csiProvider:
+    provider: {}
+  server: {}
+  valid:
+    password01: ""
+    password02: ""
+    value1: "a"
+    value2: ""
 
 global:
   some: true
+  imageRegistry: "some.io"
 
-
+Shared:
+  extra:
+    labels: {}
+    matchLabels: {}
+    podAffinityTerms: []
 
 Names:
   override:
@@ -37,8 +61,9 @@ Deployment:
     
 
   Image:
+    registry   : "docker.io"
     repository : nginx
-    tag        : ""
+    tag        : "1.16.0"
     pullPolicy : IfNotPresent
     pullSecrets:
       - name: regcred
