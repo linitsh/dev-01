@@ -8,13 +8,13 @@ env     :
 includes:
   clin:
     aliases : [c]
-    taskfile: tools/clin.yaml 
+    taskfile: tasks/clin.yaml 
   helm:
     aliases : [h]
-    taskfile: tools/helm.yaml 
+    taskfile: tasks/helm.yaml 
   git:
     aliases : [g]
-    taskfile: tools/git.yaml 
+    taskfile: tasks/git.yaml 
 
 tasks:
   default: task -a | grep '{{.CLI_ARGS}}' | awk '{ print $2 }' | sed 's/.$//' | sed 's/^/task /'

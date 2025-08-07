@@ -1,5 +1,7 @@
 {{- if not .Values.Settings.debug -}}
-{{- if .Values.Network.include -}}
+{{- if .Values.Network.include    -}}
+{{- $Service := .Values.Network.Service -}}
+
 apiVersion: v1
 kind: Service
 metadata:
@@ -7,12 +9,13 @@ metadata:
   labels:
     {{- include "_.labels.standard" . | nindent 4 }}
 spec:
-  type: {{ .Values.Network.Service.type }}
+  type: {{ $Service.type }}
   ports:
-    - port: {{ .Values.Network.Service.port }}
+    - port: {{ $Service.port }}
       targetPort: http
       protocol: TCP
       name: http
   selector: {}
+
 {{- end -}}
 {{- end -}}

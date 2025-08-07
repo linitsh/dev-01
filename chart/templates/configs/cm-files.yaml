@@ -1,13 +1,17 @@
-{{- if .Values.Configs.include -}}
+{{- if not .Values.Settings.debug -}}
+{{- $i := .Values.Configs         -}}
+{{- if $i.include                 -}}
+
 apiVersion: v1
 kind: ConfigMap
 metadata:
   name: {{ include "_.names.fullname" . }}
   namespace: default
 data:
-{{- range $name, $value := .Values.Configs.files }}
+{{- range $name, $value := $i.files }}
   {{ $name | replace  "_" "." }}: {{ print "|-" }}
     {{- $value | nindent 4 }}
 {{- end }}
 
+{{- end -}}
 {{- end -}}

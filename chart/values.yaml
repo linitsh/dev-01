@@ -49,6 +49,7 @@ Security:
 
 
 Deployment:
+  include : true
   test    : false
   replicas: 1
 
@@ -90,7 +91,6 @@ Deployment:
 
   Probes:
 
-        
     readinessProbe:
       httpGet:
         path: /

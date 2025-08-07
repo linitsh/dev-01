@@ -1,5 +1,7 @@
 {{- if not .Values.Settings.debug -}}
-{{- $i := .Values.Deployment -}}
+{{- $i := .Values.Deployment      -}}
+{{- if $i.include                 -}}
+
 apiVersion: apps/v1
 kind: Deployment
 metadata:
@@ -87,4 +89,5 @@ spec:
         {{- toYaml . | nindent 8 }}
       {{- end }}
 
+{{- end -}}
 {{- end -}}
