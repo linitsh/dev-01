@@ -1,0 +1,2 @@
+alias t="task"
+alias push="t g:p"
