@@ -1,13 +1,11 @@
 # ------------------------------------------------------------------
 # yaml-language-server: $schema=../../chart/values.schema.json
-# title               : Image "qa" version values for gold chart
+# title               : Image "dev" version values for gold chart
 # tags                : [ chart ]
 # categories          : [ k8s, helm ]
 # ------------------------------------------------------------------
 
-# Deployment:
-#   Image:
-#     repository: "registry.gitlab.com/argocd9135324/app-01"
-#     tag       : "0.0.8"
-
-
+Deployment:
+  Image:
+    repository: "nginx"
+    tag       : "1.29.0"
