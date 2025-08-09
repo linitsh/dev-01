@@ -19,7 +19,7 @@ spec:
   template:
     metadata:
       ##          'dev-01-prod' - can be used as app namespace in the cluster
-      name       : &id dev-01-{{ .path.basename | replace "_" "--" | replace "@" "" }}
+      name       : &id dev-01-{{ .path.filenameNormalized | replace "_" "--" | replace "@" "" }}
       finalizers : [ resources-finalizer.argocd.argoproj.io ]
       annotations:
         ###################################
@@ -54,7 +54,7 @@ spec:
         helm:
           valueFiles  :       # list of value files to use
             - $values/values/default/default.yaml
-            # - $values/values/image/  {{- .Config.extend.image   -}}.yaml
+            - $values/values/image/  {{- .Config.extend.image   -}}.yaml
             # - $values/values/power/  {{- .Config.extend.power   -}}.yaml
             # - $values/values/region/ {{- .Config.extend.region  -}}.yaml
             # - $values/values/@envs/  {{- .path.basename         -}}.yaml
