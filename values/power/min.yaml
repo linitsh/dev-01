@@ -1,6 +1,6 @@
 # ------------------------------------------------------------------
 # yaml-language-server: $schema=../../chart/values.schema.json
-# title               : Resources "non-prod" values for gold chart
+# title               : Resources "dev" values for gold chart
 # tags                : [ chart ]
 # categories          : [ k8s, helm ]
 # ------------------------------------------------------------------
