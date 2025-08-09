@@ -8,6 +8,7 @@ tasks:
     dir    : '{{.ROOT_DIR}}'
     ignore_error: true
     cmds   :
+    - git config pull.rebase true
     - git pull gl main
     - git add .
     - git commit -m "update"
