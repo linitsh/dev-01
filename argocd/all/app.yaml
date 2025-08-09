@@ -1,7 +1,7 @@
 apiVersion: argoproj.io/v1alpha1
 kind: Application
 metadata:
-  name     : root-dev-01
+  name     : dev-01-root
   namespace: &ns argo-cd
   finalizers:
   - resources-finalizer.argocd.argoproj.io
@@ -10,7 +10,7 @@ spec:
   
   source:
     repoURL: https://gitlab.com/argocd9135324/dev-01.git
-    path   : argocd/appsets/all
+    path   : argocd/all/set.yaml
     targetRevision: HEAD
 
   destination:

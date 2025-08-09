@@ -1,7 +1,7 @@
 apiVersion: argoproj.io/v1alpha1
 kind: ApplicationSet
 metadata:
-  name     : set-all-dev-01
+  name     : dev-01-set
   namespace: argo-cd
 
 spec:
@@ -19,7 +19,7 @@ spec:
   template:
     metadata:
       ##          'dev-01-prod' - can be used as app namespace in the cluster
-      name       : &id dev-01-{{ .path.filenameNormalized | replace ".yaml" "" }}
+      name       : &name dev-01-{{ .path.filenameNormalized | replace ".yaml" "" }}
       finalizers : [ resources-finalizer.argocd.argoproj.io ]
       annotations:
         ###################################
@@ -32,10 +32,10 @@ spec:
         argocd-image-updater.argoproj.io/write-back-method: git:secret:argo-cd/repo-3701229305
         
         # * write back settings (where the replace a file)
-        argocd-image-updater.argoproj.io/write-back-target: helmvalues:/values/image/{{ .Config.extend.image }}.yaml
+        argocd-image-updater.argoproj.io/write-back-target: helmvalues:/values/image/{{- .Config.extend.image -}}.yaml
         
         # * if empty '' then autoupdate enabled if '*' then autoupdate disabled for all
-        argocd-image-updater.argoproj.io/app-01.ignore-tags: '{{- if eq ( .Config.autoupdate.enabled | toString ) "true" }}{{- else }}*{{- end }}'
+        argocd-image-updater.argoproj.io/app-01.ignore-tags: '{{- .Config.autoupdate.enabled | ternary "" "*" -}}'
         
         # ? see https://argocd-image-updater.readthedocs.io/en/latest/basics/update-strategies
         argocd-image-updater.argoproj.io/app-01.update-strategy: semver
@@ -53,19 +53,19 @@ spec:
         targetRevision: HEAD  # can be branch, tag or commit (of chart version)
         helm:
           valueFiles  :       # list of value files to use
-            - $values/values/default/{{- .Config.extend.default -}}.yaml
-            - $values/values/image/  {{- .Config.extend.image   -}}.yaml
-            - $values/values/power/  {{- .Config.extend.power   -}}.yaml
-            - $values/values/region/ {{- .Config.extend.region  -}}.yaml
-            - $values/values/@envs/  {{- .path.filename         -}}
+            - $v/values/default/{{- .Config.extend.default -}}.yaml
+            - $v/values/image/  {{- .Config.extend.image   -}}.yaml
+            - $v/values/power/  {{- .Config.extend.power   -}}.yaml
+            - $v/values/region/ {{- .Config.extend.region  -}}.yaml
+            - $v/values/@envs/  {{- .path.filename         -}}
       
       - repoURL       : *repo  # repo URL for values (can be splited from chart)
-        ref           : values # alias to this repo
+        ref           : v      # alias to this repo
         targetRevision: HEAD   # revision for values (so wee can use any repo and revision for values)
     
       destination:
         server   : https://kubernetes.default.svc
-        namespace: *id # namespace == app name
+        namespace: *name # namespace == app name
 
       syncPolicy:
         syncOptions:
