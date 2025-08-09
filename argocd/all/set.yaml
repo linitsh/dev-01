@@ -1,7 +1,7 @@
 apiVersion: argoproj.io/v1alpha1
 kind: ApplicationSet
 metadata:
-  name     : dev-01-set
+  name     : dev-01-all-set
   namespace: argo-cd
 
 spec:
@@ -19,7 +19,7 @@ spec:
   template:
     metadata:
       ##          'dev-01-prod' - can be used as app namespace in the cluster
-      name       : &name dev-01-{{ .path.filenameNormalized | replace ".yaml" "" }}
+      name       : &name dev-01-all-app-{{ .path.filenameNormalized | replace ".yaml" "" }}
       finalizers : [ resources-finalizer.argocd.argoproj.io ]
       annotations:
         ###################################
