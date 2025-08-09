@@ -12,7 +12,7 @@ Config:
   extend:
     default : default
     image   : dev
-    power   : min
+    power   : max
     region  : eu
 
 global:
