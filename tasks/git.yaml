@@ -9,13 +9,14 @@ tasks:
     ignore_error: true
     cmds   :
     - git config pull.rebase true
-    - git fetch gl main
-    - git pull  gl main
+    - git add .
+    - git commit -m "update"
+    - git pull
     - git add .
     - git commit -m "update"
     - git pull gh main
     - git add .
     - git commit -m "update"
 
-    - git push gl main --force
-    - git push gh main --force
+    - git push gl main
+    - git push gh main
