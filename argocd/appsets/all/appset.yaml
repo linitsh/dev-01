@@ -15,7 +15,7 @@ spec:
         revision: HEAD
         requeueAfterSeconds: 30
         files:
-        - path: values/@envs/**/*.yaml
+        - path: values/@envs/*.yaml
   template:
     metadata:
       ##          'dev-01-prod' - can be used as app namespace in the cluster
@@ -53,11 +53,11 @@ spec:
         targetRevision: HEAD  # can be branch, tag or commit (of chart version)
         helm:
           valueFiles  :       # list of value files to use
-            - $values/values/default/{{- .Config.extend.default -}}.yaml
-            - $values/values/image/  {{- .Config.extend.image   -}}.yaml
-            - $values/values/power/  {{- .Config.extend.power   -}}.yaml
-            - $values/values/region/ {{- .Config.extend.region  -}}.yaml
-            - $values/values/@envs/  {{- .path.basename         -}}.yaml
+            - $values/values/default/default.yaml
+            # - $values/values/image/  {{- .Config.extend.image   -}}.yaml
+            # - $values/values/power/  {{- .Config.extend.power   -}}.yaml
+            # - $values/values/region/ {{- .Config.extend.region  -}}.yaml
+            # - $values/values/@envs/  {{- .path.basename         -}}.yaml
       
       - repoURL       : *repo  # repo URL for values (can be splited from chart)
         ref           : values # alias to this repo
