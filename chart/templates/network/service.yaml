@@ -10,12 +10,13 @@ metadata:
     {{- include "_.labels.standard" . | nindent 4 }}
 spec:
   type: {{ $Service.type }}
+  {{- $podLabels := include "_.tplvalues.merge" ( dict "values" ( list .Values.Deployment.Pod.labels .Values.Shared.extra.labels ) "context" . ) }}
+  selector: {{- include "_.labels.match-labels" ( dict "customLabels" $podLabels "context" $ ) | nindent 4 }}
   ports:
     - port: {{ $Service.port }}
       targetPort: http
       protocol: TCP
       name: http
-  selector: {}
 
 {{- end -}}
 {{- end -}}

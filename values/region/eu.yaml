@@ -5,5 +5,9 @@
 # categories          : [ k8s, helm ]
 # ------------------------------------------------------------------
 
-global:
-  some: true
+Shared:
+  extra:
+    labels:
+      region: "eu"
+    matchLabels:
+      region: "eu"

@@ -28,7 +28,7 @@ spec:
         {{- end }}
     spec:
 
-      {{ include "_.images.pullSecrets" ( dict "images" ( list $i.Image ) "global" .Values.global ) }}
+      {{/*- include "_.images.pullSecrets" ( dict "images" ( list $i.Image ) "global" .Values.global ) | nindent 6 */}}
       
       serviceAccountName: {{ include "_.sa.name" . }}
       

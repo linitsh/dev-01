@@ -15,10 +15,10 @@ spec:
         revision: HEAD
         requeueAfterSeconds: 30
         files:
-        - path: values/**/config.yaml
+        - path: values/@envs/**/*.yaml
   template:
     metadata:
-      ##          'dev-01-stage--prod--eu' - can be used as app namespace in the cluster
+      ##          'dev-01-prod' - can be used as app namespace in the cluster
       name       : &id dev-01-{{ .path.basename | replace "_" "--" }}
       finalizers : [ resources-finalizer.argocd.argoproj.io ]
       annotations:
@@ -32,17 +32,17 @@ spec:
         argocd-image-updater.argoproj.io/write-back-method: git:secret:argo-cd/repo-3701229305
         
         # * write back settings (where the replace a file)
-        argocd-image-updater.argoproj.io/write-back-target: helmvalues:/values/01-image/{{ index (.path.basename | split "_") "_0" }}.yaml
+        argocd-image-updater.argoproj.io/write-back-target: helmvalues:/values/image/{{ .Config.extend.image }}.yaml
         
         # * if empty '' then autoupdate enabled if '*' then autoupdate disabled for all
-        argocd-image-updater.argoproj.io/app-01.ignore-tags: '{{- if eq ( .autoupdate.enabled | toString ) "true" }}{{- else }}*{{- end }}'
+        argocd-image-updater.argoproj.io/app-01.ignore-tags: '{{- if eq ( .Config.autoupdate.enabled | toString ) "true" }}{{- else }}*{{- end }}'
         
         # ? see https://argocd-image-updater.readthedocs.io/en/latest/basics/update-strategies
         argocd-image-updater.argoproj.io/app-01.update-strategy: semver
         
         # * map yaml fields to the image updater replace fields
-        argocd-image-updater.argoproj.io/app-01.helm.image-name: image.repository
-        argocd-image-updater.argoproj.io/app-01.helm.image-tag : image.tag
+        argocd-image-updater.argoproj.io/app-01.helm.image-name: Deployment.Image.repository
+        argocd-image-updater.argoproj.io/app-01.helm.image-tag : Deployment.Image.tag
 
   
     spec:
@@ -53,11 +53,11 @@ spec:
         targetRevision: HEAD  # can be branch, tag or commit (of chart version)
         helm:
           valueFiles  :       # list of value files to use
-            - $values/values/00-common/values.yaml
-            - $values/values/01-image/{{ index (.path.basename | split "_") "_0" }}.yaml
-            - $values/values/02-resources/{{ index (.path.basename | split "_") "_1" }}.yaml
-            - $values/values/03-region/{{ index (.path.basename | split "_") "_2" }}.yaml
-            - $values/values/envs/{{ .path.basename }}/values.yaml
+            - $values/values/default/{{- .Config.extend.default -}}.yaml
+            - $values/values/image/  {{- .Config.extend.image   -}}.yaml
+            - $values/values/power/  {{- .Config.extend.power   -}}.yaml
+            - $values/values/region/ {{- .Config.extend.region  -}}.yaml
+            - $values/values/@envs/  {{- .path.basename         -}}.yaml
       
       - repoURL       : *repo  # repo URL for values (can be splited from chart)
         ref           : values # alias to this repo

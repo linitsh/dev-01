@@ -632,7 +632,7 @@
           "default": false
         }
       },
-      "additionalProperties": false
+      "additionalProperties": true
     },
     "Common": {
       "type": "object",
@@ -640,11 +640,11 @@
         "enabled": {
           "type": "boolean",
           "description": "",
-          "default": false
+          "default": true
         }
       },
-      "additionalProperties": false
+      "additionalProperties": true
     }
   },
-  "additionalProperties": false
+  "additionalProperties": true
 }
