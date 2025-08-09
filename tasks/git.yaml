@@ -6,8 +6,14 @@ tasks:
     desc   : ''
     aliases: [p]
     dir    : '{{.ROOT_DIR}}'
+    ignore_error: true
     cmds   :
+    - git pull gl main
     - git add .
     - git commit -m "update"
-    - git push gl main --force
-    - git push gh main --force
+    - git pull gh main
+    - git add .
+    - git commit -m "update"
+
+    - git push gl main
+    - git push gh main
