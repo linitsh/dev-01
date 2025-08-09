@@ -6,13 +6,73 @@
 # ------------------------------------------------------------------
 # clear:^\s*##.*$
 
-## @section Setings
+## @section Config
 ## @descriptionStart
 ## no desctiption.
 ## @descriptionEnd
-Setings:
-  ## @param Setings.debug
-  debug: false
+Config:
+  ## @extra Config.autoupdate [object]
+  autoupdate:
+    ## @param Config.autoupdate.enabled
+    enabled : true
+    ## @param Config.autoupdate.paused
+    paused  : false
+  ## @extra Config.extend [object]
+  extend:
+    ## @param Config.extend.default
+    default : default
+    ## @param Config.extend.image
+    image   : dev
+    ## @param Config.extend.power
+    power   : min
+    ## @param Config.extend.region
+    region  : eu
+
+## @section Settings
+## @descriptionStart
+## no desctiption.
+## @descriptionEnd
+Settings:
+  ## @param Settings.debug
+  debug: true
+  ## @param Settings.key
+  key: "somekey"
+  ## @param Settings.existingSecret
+  existingSecret: ""
+  ## @param Settings.password1
+  password1: ""
+  ## @param Settings.password2
+  password2: ""
+  ## @param Settings.value1
+  value1: "a"
+  ## @param Settings.value2
+  value2: "b"
+  ## @extra Settings.merge1 [object]
+  merge1:
+    ## @param Settings.merge1.app
+    app: "a"
+  ## @extra Settings.merge2 [object]
+  merge2:
+    ## @param Settings.merge2.app
+    app: "b"
+    ## @param Settings.merge2.cpp
+    cpp: "c"
+  ## @extra Settings.csiProvider [object]
+  csiProvider:
+    ## @param Settings.csiProvider.provider
+    provider: {}
+  ## @param Settings.server
+  server: {}
+  ## @extra Settings.valid [object]
+  valid:
+    ## @param Settings.valid.password01
+    password01: ""
+    ## @param Settings.valid.password02
+    password02: ""
+    ## @param Settings.valid.value1
+    value1: "a"
+    ## @param Settings.valid.value2
+    value2: ""
 
 ## @section global
 ## @descriptionStart
@@ -21,8 +81,22 @@ Setings:
 global:
   ## @param global.some
   some: true
+  ## @param global.imageRegistry
+  imageRegistry: "some.io"
 
-
+## @section Shared
+## @descriptionStart
+## no desctiption.
+## @descriptionEnd
+Shared:
+  ## @extra Shared.extra [object]
+  extra:
+    ## @param Shared.extra.labels
+    labels: {}
+    ## @param Shared.extra.matchLabels
+    matchLabels: {}
+    ## @param Shared.extra.podAffinityTerms
+    podAffinityTerms: []
 
 ## @section Names
 ## @descriptionStart
@@ -52,6 +126,8 @@ Security:
 ## no desctiption.
 ## @descriptionEnd
 Deployment:
+  ## @param Deployment.include
+  include : true
   ## @param Deployment.test
   test    : false
   ## @param Deployment.replicas
@@ -72,10 +148,12 @@ Deployment:
 
   ## @section Deployment.Image - ``
   Image:
+    ## @param Deployment.Image.registry
+    registry   : "docker.io"
     ## @param Deployment.Image.repository
     repository : nginx
     ## @param Deployment.Image.tag
-    tag        : ""
+    tag        : "1.16.0"
     ## @param Deployment.Image.pullPolicy
     pullPolicy : IfNotPresent
     ## @extra Deployment.Image.pullSecrets [array]
@@ -114,7 +192,6 @@ Deployment:
   ## @section Deployment.Probes - ``
   Probes:
 
-        
     ## @extra Deployment.Probes.readinessProbe [object]
     readinessProbe:
       ## @extra Deployment.Probes.readinessProbe.httpGet [object]
@@ -250,13 +327,18 @@ Configs:
       # inserted by --set-file
 
 
-## @section Redis [object]
+## @section Redis
+## @descriptionStart
+## no desctiption.
+## @descriptionEnd
 Redis:
-  ## @skip Redis.enabled
+  ## @param Redis.enabled
   enabled: false
 
-
-## @section Common [object]
+## @section Common
+## @descriptionStart
+## no desctiption.
+## @descriptionEnd
 Common:
-  ## @skip Common.enabled
+  ## @param Common.enabled
   enabled: false

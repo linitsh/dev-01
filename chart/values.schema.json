@@ -2,16 +2,163 @@
   "title": "Chart Values",
   "type": "object",
   "properties": {
-    "Setings": {
+    "Config": {
+      "type": "object",
+      "properties": {
+        "autoupdate": {
+          "type": "object",
+          "properties": {
+            "enabled": {
+              "type": "boolean",
+              "description": "",
+              "default": true
+            },
+            "paused": {
+              "type": "boolean",
+              "description": "",
+              "default": false
+            }
+          },
+          "additionalProperties": false
+        },
+        "extend": {
+          "type": "object",
+          "properties": {
+            "default": {
+              "type": "string",
+              "description": "",
+              "default": "default"
+            },
+            "image": {
+              "type": "string",
+              "description": "",
+              "default": "dev"
+            },
+            "power": {
+              "type": "string",
+              "description": "",
+              "default": "min"
+            },
+            "region": {
+              "type": "string",
+              "description": "",
+              "default": "eu"
+            }
+          },
+          "additionalProperties": false
+        }
+      },
+      "additionalProperties": false
+    },
+    "Settings": {
       "type": "object",
       "properties": {
         "debug": {
           "type": "boolean",
           "description": "",
-          "default": false
+          "default": true
+        },
+        "key": {
+          "type": "string",
+          "description": "",
+          "default": "somekey"
+        },
+        "existingSecret": {
+          "type": "string",
+          "description": "",
+          "default": ""
+        },
+        "password1": {
+          "type": "string",
+          "description": "",
+          "default": ""
+        },
+        "password2": {
+          "type": "string",
+          "description": "",
+          "default": ""
+        },
+        "value1": {
+          "type": "string",
+          "description": "",
+          "default": "a"
+        },
+        "value2": {
+          "type": "string",
+          "description": "",
+          "default": "b"
+        },
+        "merge1": {
+          "type": "object",
+          "properties": {
+            "app": {
+              "type": "string",
+              "description": "",
+              "default": "a"
+            }
+          },
+          "additionalProperties": false
+        },
+        "merge2": {
+          "type": "object",
+          "properties": {
+            "app": {
+              "type": "string",
+              "description": "",
+              "default": "b"
+            },
+            "cpp": {
+              "type": "string",
+              "description": "",
+              "default": "c"
+            }
+          },
+          "additionalProperties": false
+        },
+        "csiProvider": {
+          "type": "object",
+          "properties": {
+            "provider": {
+              "type": "object",
+              "description": "",
+              "default": {}
+            }
+          },
+          "additionalProperties": false
+        },
+        "server": {
+          "type": "object",
+          "description": "",
+          "default": {}
+        },
+        "valid": {
+          "type": "object",
+          "properties": {
+            "password01": {
+              "type": "string",
+              "description": "",
+              "default": ""
+            },
+            "password02": {
+              "type": "string",
+              "description": "",
+              "default": ""
+            },
+            "value1": {
+              "type": "string",
+              "description": "",
+              "default": "a"
+            },
+            "value2": {
+              "type": "string",
+              "description": "",
+              "default": ""
+            }
+          },
+          "additionalProperties": false
         }
       },
-      "additionalProperties": true
+      "additionalProperties": false
     },
     "global": {
       "type": "object",
@@ -20,9 +167,42 @@
           "type": "boolean",
           "description": "",
           "default": true
+        },
+        "imageRegistry": {
+          "type": "string",
+          "description": "",
+          "default": "some.io"
         }
       },
-      "additionalProperties": true
+      "additionalProperties": false
+    },
+    "Shared": {
+      "type": "object",
+      "properties": {
+        "extra": {
+          "type": "object",
+          "properties": {
+            "labels": {
+              "type": "object",
+              "description": "",
+              "default": {}
+            },
+            "matchLabels": {
+              "type": "object",
+              "description": "",
+              "default": {}
+            },
+            "podAffinityTerms": {
+              "type": "array",
+              "description": "",
+              "default": [],
+              "items": {}
+            }
+          },
+          "additionalProperties": false
+        }
+      },
+      "additionalProperties": false
     },
     "Names": {
       "type": "object",
@@ -65,6 +245,11 @@
     "Deployment": {
       "type": "object",
       "properties": {
+        "include": {
+          "type": "boolean",
+          "description": "",
+          "default": true
+        },
         "test": {
           "type": "boolean",
           "description": "",
@@ -104,6 +289,11 @@
         "Image": {
           "type": "object",
           "properties": {
+            "registry": {
+              "type": "string",
+              "description": "",
+              "default": "docker.io"
+            },
             "repository": {
               "type": "string",
               "description": "",
@@ -112,7 +302,7 @@
             "tag": {
               "type": "string",
               "description": "",
-              "default": ""
+              "default": "1.16.0"
             },
             "pullPolicy": {
               "type": "string",
@@ -134,7 +324,7 @@
               }
             }
           },
-          "additionalProperties": true
+          "additionalProperties": false
         },
         "Pod": {
           "type": "object",
@@ -432,7 +622,29 @@
         }
       },
       "additionalProperties": false
+    },
+    "Redis": {
+      "type": "object",
+      "properties": {
+        "enabled": {
+          "type": "boolean",
+          "description": "",
+          "default": false
+        }
+      },
+      "additionalProperties": false
+    },
+    "Common": {
+      "type": "object",
+      "properties": {
+        "enabled": {
+          "type": "boolean",
+          "description": "",
+          "default": false
+        }
+      },
+      "additionalProperties": false
     }
   },
-  "additionalProperties": true
+  "additionalProperties": false
 }

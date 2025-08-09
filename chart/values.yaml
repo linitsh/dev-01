@@ -6,6 +6,16 @@
 # ------------------------------------------------------------------
 # clear:^\s*##.*$
 
+Config:
+  autoupdate:
+    enabled : true
+    paused  : false
+  extend:
+    default : default
+    image   : dev
+    power   : min
+    region  : eu
+
 Settings:
   debug: true
   key: "somekey"

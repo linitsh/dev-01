@@ -5,8 +5,10 @@ categories: []
 ---
 ---
 ### Parameters <a name="rootcontents"></a>
-- [Setings](#setings)
+- [Config](#config)
+- [Settings](#settings)
 - [global](#global)
+- [Shared](#shared)
 - [Names](#names)
 - [Security](#security)
 - [Deployment](#deployment)
@@ -29,22 +31,70 @@ categories: []
  <a name="rootcontents"></a>
 
 ___
-#### [^](#rootcontents)<a name="setings"></a> Setings
+#### [^](#rootcontents)<a name="config"></a> Config
 
 no desctiption.
 
-| Name            | Description | Value   |
-| --------------- | ----------- | ------- |
-| `Setings.debug` |             | `false` |
+| Name                        | Description | Value     |
+| --------------------------- | ----------- | --------- |
+| `Config.autoupdate`         |             |           |
+| `Config.autoupdate.enabled` |             | `true`    |
+| `Config.autoupdate.paused`  |             | `false`   |
+| `Config.extend`             |             |           |
+| `Config.extend.default`     |             | `default` |
+| `Config.extend.image`       |             | `dev`     |
+| `Config.extend.power`       |             | `min`     |
+| `Config.extend.region`      |             | `eu`      |
+
+___
+#### [^](#rootcontents)<a name="settings"></a> Settings
+
+no desctiption.
+
+| Name                            | Description | Value     |
+| ------------------------------- | ----------- | --------- |
+| `Settings.debug`                |             | `true`    |
+| `Settings.key`                  |             | `somekey` |
+| `Settings.existingSecret`       |             | `""`      |
+| `Settings.password1`            |             | `""`      |
+| `Settings.password2`            |             | `""`      |
+| `Settings.value1`               |             | `a`       |
+| `Settings.value2`               |             | `b`       |
+| `Settings.merge1`               |             |           |
+| `Settings.merge1.app`           |             | `a`       |
+| `Settings.merge2`               |             |           |
+| `Settings.merge2.app`           |             | `b`       |
+| `Settings.merge2.cpp`           |             | `c`       |
+| `Settings.csiProvider`          |             |           |
+| `Settings.csiProvider.provider` |             | `{}`      |
+| `Settings.server`               |             | `{}`      |
+| `Settings.valid`                |             |           |
+| `Settings.valid.password01`     |             | `""`      |
+| `Settings.valid.password02`     |             | `""`      |
+| `Settings.valid.value1`         |             | `a`       |
+| `Settings.valid.value2`         |             | `""`      |
 
 ___
 #### [^](#rootcontents)<a name="global"></a> global
 
 no desctiption.
 
-| Name          | Description | Value  |
-| ------------- | ----------- | ------ |
-| `global.some` |             | `true` |
+| Name                   | Description | Value     |
+| ---------------------- | ----------- | --------- |
+| `global.some`          |             | `true`    |
+| `global.imageRegistry` |             | `some.io` |
+
+___
+#### [^](#rootcontents)<a name="shared"></a> Shared
+
+no desctiption.
+
+| Name                            | Description | Value |
+| ------------------------------- | ----------- | ----- |
+| `Shared.extra`                  |             |       |
+| `Shared.extra.labels`           |             | `{}`  |
+| `Shared.extra.matchLabels`      |             | `{}`  |
+| `Shared.extra.podAffinityTerms` |             | `[]`  |
 
 ___
 #### [^](#rootcontents)<a name="names"></a> Names
@@ -74,6 +124,7 @@ no desctiption.
 
 | Name                  | Description | Value   |
 | --------------------- | ----------- | ------- |
+| `Deployment.include`  |             | `true`  |
 | `Deployment.test`     |             | `false` |
 | `Deployment.replicas` |             | `1`     |
 
@@ -92,8 +143,9 @@ ___
 
 | Name                                   | Description | Value          |
 | -------------------------------------- | ----------- | -------------- |
+| `Deployment.Image.registry`            |             | `docker.io`    |
 | `Deployment.Image.repository`          |             | `nginx`        |
-| `Deployment.Image.tag`                 |             | `""`           |
+| `Deployment.Image.tag`                 |             | `1.16.0`       |
 | `Deployment.Image.pullPolicy`          |             | `IfNotPresent` |
 | `Deployment.Image.pullSecrets`         |             |                |
 | `Deployment.Image.pullSecrets[0].name` |             | `regcred`      |
@@ -218,10 +270,21 @@ no desctiption.
 | `Configs.files.50x_html`     |             | `# inserted by --set-file` |
 
 ___
-#### [^](#rootcontents)<a name="redis"></a> Redis [object]
+#### [^](#rootcontents)<a name="redis"></a> Redis
 
+no desctiption.
+
+| Name            | Description | Value   |
+| --------------- | ----------- | ------- |
+| `Redis.enabled` |             | `false` |
 
 ___
-#### [^](#rootcontents)<a name="common"></a> Common [object]
+#### [^](#rootcontents)<a name="common"></a> Common
+
+no desctiption.
+
+| Name             | Description | Value   |
+| ---------------- | ----------- | ------- |
+| `Common.enabled` |             | `false` |
 
 
