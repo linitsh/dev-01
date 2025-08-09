@@ -7,13 +7,13 @@
 
 Config:
   autoupdate:
-    enabled : true
-    paused  : false
+    enabled: false
+    paused: true
   extend:
-    default : default
-    image   : skip
-    power   : min
-    region  : skip
+    default: default
+    image: skip
+    power: min
+    region: skip
 
 global:
   some: false
