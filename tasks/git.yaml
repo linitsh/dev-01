@@ -17,5 +17,5 @@ tasks:
     - git add .
     - git commit -m "update"
 
-    - git push gl main
-    - git push gh main
+    - git push gl main --force
+    - git push gh main --force
