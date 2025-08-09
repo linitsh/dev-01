@@ -11,12 +11,6 @@ tasks:
     - git config pull.rebase true
     - git add .
     - git commit -m "update"
-    - git pull
-    - git add .
-    - git commit -m "update"
-    - git pull gh main
-    - git add .
-    - git commit -m "update"
 
     - git push gl main
     - git push gh main
