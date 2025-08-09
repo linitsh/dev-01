@@ -13,7 +13,7 @@ Config:
     default : default
     image   : dev
     power   : min
-    region  : no
+    region  : skip
 
 global:
   some: false
