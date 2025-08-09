@@ -19,7 +19,7 @@ spec:
   template:
     metadata:
       ##          'dev-01-prod' - can be used as app namespace in the cluster
-      name       : &id dev-01-{{ .path.basename | replace "_" "--" }}
+      name       : &id dev-01-{{ .path.basename | replace "_" "--" | replace "@" "" }}
       finalizers : [ resources-finalizer.argocd.argoproj.io ]
       annotations:
         ###################################
