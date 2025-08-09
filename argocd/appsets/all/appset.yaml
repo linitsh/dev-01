@@ -53,7 +53,7 @@ spec:
         targetRevision: HEAD  # can be branch, tag or commit (of chart version)
         helm:
           valueFiles  :       # list of value files to use
-            - $values/values/default/default.yaml
+            - $values/values/default/{{- .Config.extend.default -}}.yaml
             - $values/values/image/  {{- .Config.extend.image   -}}.yaml
             - $values/values/power/  {{- .Config.extend.power   -}}.yaml
             - $values/values/region/ {{- .Config.extend.region  -}}.yaml
