@@ -40,7 +40,7 @@ Settings:
 
 global:
   some: true
-  imageRegistry: "some.io"
+  # imageRegistry: "some.io"
 
 Shared:
   extra:
