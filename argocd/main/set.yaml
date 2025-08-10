@@ -3,10 +3,10 @@ kind        : ApplicationSet
 metadata:
   name      : dev-01-main-set
   namespace : argo-cd
-  # finalizers: [ resources-finalizer.argocd.argoproj.io ]
 spec:
   goTemplate       : true
   goTemplateOptions: [ missingkey=error ]
+  
   syncPolicy:
     applicationsSync: create-update
 
@@ -25,7 +25,6 @@ spec:
     metadata:
       ## name of environment get from filename - will be a namespace to.      
       name       : &name dev-01-main-app-{{- regexFind "[A-Za-z]+" .path.filenameNormalized -}}
-      # finalizers : [ resources-finalizer.argocd.argoproj.io ]
       annotations:
         ######
         ### ArgoCD image-updater settings.
@@ -53,21 +52,21 @@ spec:
       ## project set strict from file behind in this folder.
       project: dev-01-main-project
       sources:
-      - repoURL       : *repo # repo URL for chart
-        path          : chart # path to the chart folder
-        targetRevision: HEAD  # can be branch, tag or commit (of chart version)
-        helm:
-          valueFiles  :       # list of value files to use
-            - $v/values/0-default/{{- .Config.extend.default -}}.yaml
-            - $v/values/1-image/  {{- .Config.extend.image   -}}.yaml
-            - $v/values/2-power/  {{- .Config.extend.power   -}}.yaml
-            - $v/values/3-region/ {{- .Config.extend.region  -}}.yaml
-            - $v/values/@envs/    {{- .path.filename         -}}
+        - repoURL       : *repo # repo URL for chart
+          path          : chart # path to the chart folder
+          targetRevision: HEAD  # can be branch, tag or commit (of chart version)
+          helm:
+            valueFiles  :       # list of value files to use
+              - $v/values/0-default/{{- .Config.extend.default -}}.yaml
+              - $v/values/1-image/  {{- .Config.extend.image   -}}.yaml
+              - $v/values/2-power/  {{- .Config.extend.power   -}}.yaml
+              - $v/values/3-region/ {{- .Config.extend.region  -}}.yaml
+              - $v/values/@envs/    {{- .path.filename         -}}
+        
+        - repoURL       : *repo  # repo URL for values (can be splited from chart)
+          ref           : v      # alias to this repo
+          targetRevision: HEAD   # revision for values (so wee can use any repo and revision for values)
       
-      - repoURL       : *repo  # repo URL for values (can be splited from chart)
-        ref           : v      # alias to this repo
-        targetRevision: HEAD   # revision for values (so wee can use any repo and revision for values)
-    
       destination:
         server   : https://kubernetes.default.svc
         namespace: *name # namespace == app name
