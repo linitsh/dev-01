@@ -25,7 +25,7 @@ spec:
     metadata:
       ## name of environment get from filename - will be a namespace to.      
       name       : &name dev-01-main-app-{{- regexFind "[A-Za-z]+" .path.filenameNormalized -}}
-      finalizers : [ resources-finalizer.argocd.argoproj.io ]
+      # finalizers : [ resources-finalizer.argocd.argoproj.io ]
       annotations:
         ######
         ### ArgoCD image-updater settings.
