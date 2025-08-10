@@ -8,9 +8,6 @@ spec:
   goTemplate       : true
   goTemplateOptions: [ missingkey=error ]
   syncPolicy:
-    automated :
-      prune   : true
-      selfHeal: true
     applicationsSync: create-update
 
   generators:
