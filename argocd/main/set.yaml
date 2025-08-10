@@ -87,5 +87,5 @@ spec:
           annotations:
             argocd.argoproj.io/tracking-id: >-
               {{- $name := regexFind "[A-Za-z]+" .path.filenameNormalized  -}}
-              name: dev-01-main-app-{{- $name -}}
+              name: 'dev-01-main-app-{{- $name }}'
               dev-01-main-app-{{- regexFind "[A-Za-z]+" .path.filenameNormalized -}}:app/Namespace:dev-01-main-app-{{- regexFind "[A-Za-z]+" .path.filenameNormalized -}}/dev-01-main-app-{{- regexFind "[A-Za-z]+" .path.filenameNormalized -}}
