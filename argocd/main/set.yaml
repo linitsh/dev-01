@@ -81,3 +81,9 @@ spec:
         automated:
           prune   : true
           selfHeal: true
+        managedNamespaceMetadata:
+          labels:
+            argocd.argoproj.io/instance: *name
+          annotations:
+            argocd.argoproj.io/tracking-id: >-
+              dev-01-main-app-{{- .path.filenameNormalized | replace (substr 0 2 .path.filenameNormalized) "" | replace ".yaml" "" -}}:app/Namespace:dev-01-main-app-{{- .path.filenameNormalized | replace (substr 0 2 .path.filenameNormalized) "" | replace ".yaml" "" -}}/dev-01-main-app-{{- .path.filenameNormalized | replace (substr 0 2 .path.filenameNormalized) "" | replace ".yaml" "" -}}
