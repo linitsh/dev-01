@@ -1,14 +1,15 @@
-apiVersion: argoproj.io/v1alpha1
-kind: ApplicationSet
+apiVersion : argoproj.io/v1alpha1
+kind       : ApplicationSet
 metadata:
-  name     : dev-01-all-set
+  name     : dev-01-main-set
   namespace: argo-cd
 
 spec:
-  goTemplate: true
+  goTemplate       : true
   goTemplateOptions: [ missingkey=error ]
   syncPolicy:
     applicationsSync: create-update
+
   generators:
     - git:
         repoURL : &repo https://gitlab.com/argocd9135324/dev-01.git
@@ -16,15 +17,19 @@ spec:
         requeueAfterSeconds: 30
         files:
         - path: values/@envs/*.yaml
+  
+  ######
+  ### Applicqtion Templae.
+  ######
   template:
     metadata:
-      ##          'dev-01-prod' - can be used as app namespace in the cluster
-      name       : &name dev-01-all-app-{{ .path.filenameNormalized | replace ".yaml" "" }}
+      ## name of environment get from filename - will be a namespace to.
+      name       : &name dev-01-main-app-{{ .path.filenameNormalized | replace ".yaml" "" }}
       finalizers : [ resources-finalizer.argocd.argoproj.io ]
       annotations:
-        ###################################
-        ### argo image updater settings ###
-        ###################################
+        ######
+        ### ArgoCD image-updater settings.
+        ######
         # * where to get the image and how filter image version (create alias for other annotation 'app-01')
         argocd-image-updater.argoproj.io/image-list: app-01=registry.gitlab.com/argocd9135324/app-01:~0.0.1
         
@@ -34,7 +39,7 @@ spec:
         # * write back settings (where the replace a file)
         argocd-image-updater.argoproj.io/write-back-target: helmvalues:/values/image/{{- .Config.extend.image -}}.yaml
         
-        # * if empty '' then autoupdate enabled if '*' then autoupdate disabled for all
+        # * if empty '' then autoupdate enabled if '*' then autoupdate disabled for main
         argocd-image-updater.argoproj.io/app-01.ignore-tags: '{{- .Config.autoupdate.enabled | ternary "" "*" -}}'
         
         # ? see https://argocd-image-updater.readthedocs.io/en/latest/basics/update-strategies
@@ -44,9 +49,9 @@ spec:
         argocd-image-updater.argoproj.io/app-01.helm.image-name: Deployment.Image.repository
         argocd-image-updater.argoproj.io/app-01.helm.image-tag : Deployment.Image.tag
 
-  
     spec:
-      project: default        # ? maybe change from config
+      ## project set strict from file behind in this folder.
+      project: dev-01-main-project
       sources:
       - repoURL       : *repo # repo URL for chart
         path          : chart # path to the chart folder

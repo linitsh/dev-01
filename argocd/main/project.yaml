@@ -1,0 +1,28 @@
+apiVersion   : argoproj.io/v1alpha1
+kind         : AppProject
+metadata:
+  name       : dev-01-main-project
+  namespace  : argo-cd
+  
+  annotations:
+    argocd.argoproj.io/sync-options: PruneLast=true
+
+spec:
+  description: |- 
+    all project all accepted
+  
+  sourceRepos:
+    - "*"
+
+  destinations:
+    - namespace: "*"
+      server   : "*"
+  
+  clusterResourceWhitelist:
+    - group    : "*"
+      kind     : "*"
+
+  namespaceResourceWhitelist:
+    - group    : "*"
+      kind     : "*"
+
