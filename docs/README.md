@@ -6,8 +6,8 @@ categories: []
 ---
 ### 
 
-- [structure](structure.md)
-- [TODO](TODO.md)
-- [WTF](wtf.md)
-- [links](links.md)
 - [chart](../chart/README.md)
+- [structure](structure.md)
+- [links](links.md)
+- [WTF](wtf.md)
+- [TODO](TODO.md)

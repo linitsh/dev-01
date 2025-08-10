@@ -1,0 +1,19 @@
+# ------------------------------------------------------------------
+# yaml-language-server: $schema=../../chart/values.schema.json
+# title               : Prod env.
+# tags                : [ chart ]
+# categories          : [ k8s, helm ]
+# ------------------------------------------------------------------
+
+Config:
+  autoupdate:
+    enabled: false
+    paused: false
+  extend:
+    default: default
+    image: prod
+    power: max
+    region: eu
+
+global:
+  some: true

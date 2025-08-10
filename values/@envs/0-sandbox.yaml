@@ -1,19 +1,19 @@
 # ------------------------------------------------------------------
 # yaml-language-server: $schema=../../chart/values.schema.json
-# title               : Prod env.
+# title               : Sandbox env.
 # tags                : [ chart ]
 # categories          : [ k8s, helm ]
 # ------------------------------------------------------------------
 
 Config:
   autoupdate:
-    enabled : false
-    paused  : false
+    enabled: true
+    paused: false
   extend:
-    default : default
-    image   : prod
-    power   : max
-    region  : eu
+    default: default
+    image: dev
+    power: min
+    region: skip
 
 global:
-  some: true
+  some: false

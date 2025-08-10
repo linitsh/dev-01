@@ -31,7 +31,7 @@ devops-repo.git
 │   │
 │   ├── @envs/                # specific environment values
 │   │   ├── name-of-env.yaml  # endless composition of values + extend other levels + config for appset
-│   │   └── ...               # more envs
+│   │   └── ...               # more envs compositions
 │   │
 │   ├── default/              # level 0 values ( core )
 │   │   ├── skip.yaml         # empty file (means libs can use Chart.yaml for data) (aka include "_.image")

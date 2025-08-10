@@ -1,0 +1,19 @@
+# ------------------------------------------------------------------
+# yaml-language-server: $schema=../../chart/values.schema.json
+# title               : Stage env.
+# tags                : [ chart ]
+# categories          : [ k8s, helm ]
+# ------------------------------------------------------------------
+
+Config:
+  autoupdate:
+    enabled: true
+    paused: false
+  extend:
+    default: default
+    image: dev
+    power: min
+    region: skip
+
+global:
+  some: false
