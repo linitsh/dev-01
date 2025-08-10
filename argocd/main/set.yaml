@@ -23,8 +23,7 @@ spec:
   ######
   template:
     metadata:
-      ## name of environment get from filename - will be a namespace to.
-      
+      ## name of environment get from filename - will be a namespace to.      
       name       : &name dev-01-main-app-{{- regexFind "[A-Za-z]+" .path.filenameNormalized -}}
       finalizers : [ resources-finalizer.argocd.argoproj.io ]
       annotations:
@@ -80,7 +79,7 @@ spec:
           prune   : true
           selfHeal: true
         
-        ## namespace deletion after delete app
+        ## namespace deletion after delete app by resource traking feature
         managedNamespaceMetadata:
           labels:
             argocd.argoproj.io/instance: *name
