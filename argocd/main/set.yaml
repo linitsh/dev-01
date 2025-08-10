@@ -1,5 +1,3 @@
-'{{- $name := .path.filenameNormalized | replace (substr 0 2 .path.filenameNormalized) "" | replace ".yaml" "" -}}'
----
 apiVersion  : argoproj.io/v1alpha1
 kind        : ApplicationSet
 metadata:
@@ -88,4 +86,6 @@ spec:
             argocd.argoproj.io/instance: *name
           annotations:
             argocd.argoproj.io/tracking-id: >-
+              {{- $name := regexFind "[A-Za-z]+" .path.filenameNormalized  -}}
+              name: dev-01-main-app-{{- $name -}}
               dev-01-main-app-{{- regexFind "[A-Za-z]+" .path.filenameNormalized -}}:app/Namespace:dev-01-main-app-{{- regexFind "[A-Za-z]+" .path.filenameNormalized -}}/dev-01-main-app-{{- regexFind "[A-Za-z]+" .path.filenameNormalized -}}
