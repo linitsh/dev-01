@@ -24,7 +24,7 @@ spec:
   template:
     metadata:
       ## name of environment get from filename - will be a namespace to.
-      name       : &name dev-01-main-app-{{- .path.filenameNormalized | replace (substr 0 3 .path.filenameNormalized) "" | replace ".yaml" "" -}}
+      name       : &name dev-01-main-app-{{- .path.filenameNormalized | replace (substr 0 2 .path.filenameNormalized) "" | replace ".yaml" "" -}}
       finalizers : [ resources-finalizer.argocd.argoproj.io ]
       annotations:
         ######
