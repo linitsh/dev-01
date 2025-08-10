@@ -3,8 +3,7 @@ kind        : Application
 metadata:
   name      : dev-01-main-root
   namespace : &ns argo-cd
-  finalizers:
-  - resources-finalizer.argocd.argoproj.io
+  finalizers: [ resources-finalizer.argocd.argoproj.io ]
 
 spec:
   

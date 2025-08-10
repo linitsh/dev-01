@@ -1,13 +1,16 @@
-apiVersion : argoproj.io/v1alpha1
-kind       : ApplicationSet
+apiVersion  : argoproj.io/v1alpha1
+kind        : ApplicationSet
 metadata:
-  name     : dev-01-main-set
-  namespace: argo-cd
-
+  name      : dev-01-main-set
+  namespace : argo-cd
+  finalizers: [ resources-finalizer.argocd.argoproj.io ]
 spec:
   goTemplate       : true
   goTemplateOptions: [ missingkey=error ]
   syncPolicy:
+    automated :
+      prune   : true
+      selfHeal: true
     applicationsSync: create-update
 
   generators:
