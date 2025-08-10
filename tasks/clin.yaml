@@ -23,6 +23,16 @@ tasks:
     cmds    :
     - clin helm doc fill -v chart/values.yaml > chart/fill.values.yaml
 
+  promo:*:*:
+    desc    : ''
+    dir     : '{{ .ROOT_DIR }}'
+    vars:
+      SOURCE_ENV: '{{ index .MATCH 0 }}'
+      TARGET_ENV: '{{ index .MATCH 1 }}'
+    cmds    :
+    - echo "Promo from {{ .SOURCE_ENV }} to {{ .TARGET_ENV }}"
+    - clin helm mgr --action promo --source-env {{ .SOURCE_ENV }} --target-env {{ .TARGET_ENV }}
+
   x:
     desc: ''
     cmds:

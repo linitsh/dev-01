@@ -11,7 +11,7 @@ Config:
     paused  : false
   extend:
     default : default
-    image   : dev
+    image   : prod
     power   : max
     region  : eu
 
