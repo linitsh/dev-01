@@ -1,3 +1,5 @@
+'{{- $name := .path.filenameNormalized | replace (substr 0 2 .path.filenameNormalized) "" | replace ".yaml" "" -}}'
+---
 apiVersion  : argoproj.io/v1alpha1
 kind        : ApplicationSet
 metadata:
@@ -24,7 +26,7 @@ spec:
   template:
     metadata:
       ## name of environment get from filename - will be a namespace to.
-      var        : '{{- $name := .path.filenameNormalized | replace (substr 0 2 .path.filenameNormalized) "" | replace ".yaml" "" -}}'
+      
       name       : &name dev-01-main-app-{{- $name -}}
       finalizers : [ resources-finalizer.argocd.argoproj.io ]
       annotations:
