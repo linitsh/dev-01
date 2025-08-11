@@ -5,7 +5,7 @@ validate_1:
   image: oven/bun:slim
   script:
     - printenv
-    - pwd
+    - bun cicd/lab/validation/scripts/chart.ts
 
 validate_chart:
   stage: validation
