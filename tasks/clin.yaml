@@ -32,6 +32,11 @@ tasks:
     cmds    :
     - echo "Promo from {{ .SOURCE_ENV }} to {{ .TARGET_ENV }}"
     - clin helm mgr --action promo --source-env {{ .SOURCE_ENV }} --target-env {{ .TARGET_ENV }}
+  pause:
+    desc    : ''
+    dir     : '{{ .ROOT_DIR }}'
+    cmds    :
+    - clin helm mgr --action pause
 
   x:
     desc: ''
