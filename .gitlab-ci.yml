@@ -1,4 +1,5 @@
 stages:
 - validation
 - build
-include: cicd/lab/**.yml
+include: 
+- local: cicd/lab/**.yml
