@@ -1,6 +1,9 @@
-include:
- - local: cicd/lab/main.yml
+stages:
+- validation
+- build
 
+include: 
+- local: '/cicd/lab/pipelines/**.yml'
 
 build_1:
   stage: build

@@ -1,6 +1,0 @@
-stages:
-- validation
-- build
-
-include: /cicd/lab/pipelines/**.yml
-
