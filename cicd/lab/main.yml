@@ -1,6 +1,6 @@
 
 include: 
-- local: /cicd/lab/pipelines/*.yml
+- local: /cicd/lab/pipelines/validation.yml
 
 stages:
 - validation
