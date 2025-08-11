@@ -3,7 +3,7 @@ stages:
 - build
 
 include: 
-- local: '/cicd/lab/*.yml'
+- local: cicd/lab/validation.yml
 
 build_1:
   stage: build
