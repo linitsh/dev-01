@@ -1,7 +1,5 @@
 
-stages:
-  - validation
-  
+
 validate_1:
   stage: validation
   image: oven/bun:slim
