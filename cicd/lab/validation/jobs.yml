@@ -5,6 +5,14 @@ validate_1:
   image: oven/bun:slim
   script:
     - printenv
+    - pwd
+
+validate_chart:
+  stage: validation
+  image: oven/bun:slim
+  script:
+    - printenv
+    - pwd
   rules:
     - if: $CI_PIPELINE_SOURCE == 'merge_request_event'
       when: always
