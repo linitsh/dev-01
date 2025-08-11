@@ -1,9 +1,8 @@
-include:
- - local: /cicd/lab/validation.yml
-
-
 stages:
   - build
+
+include:
+ - local: /cicd/lab/validation.yml
 
 build_1:
   stage: build
