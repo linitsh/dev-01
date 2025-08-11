@@ -6,20 +6,20 @@ stages:
   - build
   - validation
 
-build:
-  image: ubuntu:20.04
+build_1:
   stage: build
-  rules:
-    - if: $CI_PIPELINE_SOURCE == 'web'
+  image: ubuntu:20.04
   script:
     - printenv
+  rules:
+    - if: $CI_PIPELINE_SOURCE == 'web'
 
 validate_1:
+  stage: validation
   image: oven/bun:slim
+  script:
+    - printenv
   rules:
     - if: $CI_PIPELINE_SOURCE == 'merge_request_event'
     # - if: $CI_COMMIT_TAG
     # - if: $CI_COMMIT_BRANCH == $CI_DEFAULT_BRANCH
-  stage: validation
-  script:
-    - printenv
