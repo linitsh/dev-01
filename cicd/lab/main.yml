@@ -1,6 +1,6 @@
 
 include: 
-- local: validation.yml
+- local: ./validation.yml
 
 stages:
 - validation
