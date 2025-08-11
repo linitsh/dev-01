@@ -1,11 +1,9 @@
-stages:
-  - build
-
 include:
  - local: /cicd/lab/validation.yml
 
-build_1:
-  stage: build
+
+.build_1:
+  # stage: build
   image: ubuntu:20.04
   script:
     - printenv
