@@ -1,7 +1,8 @@
 
 workflow:
   rules:
-    - if: '$CI_PIPELINE_SOURCE == "web"'
+    - if: $CI_PIPELINE_SOURCE == 'web'
+
 default:
   image: ubuntu:20.04
 stages:
@@ -9,5 +10,6 @@ stages:
 
 build:
   stage: build
+  
   script:
     - printenv
