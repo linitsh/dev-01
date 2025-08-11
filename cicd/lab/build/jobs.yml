@@ -5,6 +5,7 @@ build_1:
   image: ubuntu:20.04
   script:
     - printenv
+    - chmod +x $BUILD_SCRIPTS/script.sh
     - $BUILD_SCRIPTS/script.sh
   # rules:
   #   - if: $CI_PIPELINE_SOURCE == 'web'
