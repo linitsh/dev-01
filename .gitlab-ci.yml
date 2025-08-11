@@ -1,17 +1,6 @@
+include: 
+- local: cicd/lab/validation.yml
+- local: cicd/lab/build.yml
 stages:
 - validation
 - build
-
-include: 
-- local: cicd/lab/validation.yml
-
-build_1:
-  stage: build
-  image: ubuntu:20.04
-  script:
-    - printenv
-  rules:
-    - if: $CI_PIPELINE_SOURCE == 'web'
-      when: always
-    - when: never
-
