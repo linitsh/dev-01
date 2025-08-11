@@ -1,25 +1,29 @@
 variables:
   VALIDATION_SCRIPTS: cicd/lab/01-validation/scripts
 
+
+
 validate_1:
-  stage: validation
-  image: oven/bun:slim
+  stage : validation
+  image : oven/bun:slim
   script:
     - printenv
     - bun $VALIDATION_SCRIPTS/chart.ts
-  # rules:
-  #   - if: $CI_PIPELINE_SOURCE == 'merge_request_event'
-  #     when: always
-  #   - when: never
+  rules:
+    - if: $CI_PIPELINE_SOURCE == 'merge_request_event'
+      when: always
+    - when: never
+
+
 
 validate_chart:
-  stage: validation
-  image: oven/bun:slim
+  stage : validation
+  image : oven/bun:slim
   script:
     - printenv
     - pwd
   rules:
-    - if: $CI_PIPELINE_SOURCE == 'merge_request_event'
+    - if  : $CI_PIPELINE_SOURCE == 'merge_request_event'
       when: always
     - when: never
 

@@ -8,8 +8,8 @@ build_1:
   script:
     - printenv
     - bash $BUILD_SCRIPTS/script.sh
-  # rules:
-  #   - if: $CI_PIPELINE_SOURCE == 'web'
-  #     when: always
-  #   - when: never
+  rules:
+    - if  : $CI_PIPELINE_SOURCE == 'web'
+      when: always
+    - when: never
 
