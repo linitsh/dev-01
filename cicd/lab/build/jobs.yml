@@ -1,11 +1,11 @@
 variables:
-  SCRIPTS: cicd/lab/build/scripts
+  BUILD_SCRIPTS: cicd/lab/build/scripts
 build_1:
   stage: build
   image: ubuntu:20.04
   script:
     - printenv
-    - $SCRIPTS/script.sh
+    - $BUILD_SCRIPTS/script.sh
   # rules:
   #   - if: $CI_PIPELINE_SOURCE == 'web'
   #     when: always
