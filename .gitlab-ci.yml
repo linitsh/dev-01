@@ -3,7 +3,7 @@ stages:
 - build
 
 include: 
-- local: '/cicd/lab/pipelines/**.yml'
+- local: '/cicd/lab/**.yml'
 
 build_1:
   stage: build
