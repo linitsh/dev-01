@@ -1,6 +1,6 @@
 # yaml-language-server: $schema=https://json.schemastore.org/taskfile.json
 version: '3'
-tasks:
+tasks  :
 
   doc-values:
     desc    : ''
@@ -32,6 +32,7 @@ tasks:
     cmds    :
     - echo "Promo from {{ .SOURCE_ENV }} to {{ .TARGET_ENV }}"
     - clin helm mgr --action promo --source-env {{ .SOURCE_ENV }} --target-env {{ .TARGET_ENV }}
+  
   pause:
     desc    : ''
     dir     : '{{ .ROOT_DIR }}'

@@ -1,5 +1,10 @@
+variables:
+  DEV_IMAGE: $CI_REGISTRY_IMAGE:$CI_COMMIT_REF_SLUG
+default:
+  image: $DEV_IMAGE
+  
 stages:
 - validation
-- build
-include: 
-- local: cicd/lab/**.yml
+
+include:
+- local: tools/**.yml

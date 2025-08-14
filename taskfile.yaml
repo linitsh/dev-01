@@ -3,18 +3,15 @@ version : '3'
 interval: 500ms
 dotenv  : [.env]
 includes:
-  clin:
-    aliases : [c]
-    taskfile: tasks/clin.yaml 
-  helm:
-    aliases : [h]
-    taskfile: tasks/helm.yaml 
-  git:
-    aliases : [g]
-    taskfile: tasks/git.yaml 
+  tasks:
+    taskfile: tools/tasks 
+    flatten : true
 
 tasks:
-  default: task -a | grep '{{.CLI_ARGS}}' | awk '{ print $2 }' | sed 's/.$//' | sed 's/^/task /'
+  default: 
+    desc: 'search tasks by "task -- <search keywords>"'
+    cmds:
+    - task -a | grep '{{.CLI_ARGS}}' | awk '{ print $2 }' | sed 's/.$//' | sed 's/^/task /'
   
   watch:
     desc    : ''

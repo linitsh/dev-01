@@ -1,0 +1,6 @@
+validate:
+  stage : validation
+  script: ['task validation:main']
+  manual_confirmation: 'Are you sure you want to run task validation:main ?'
+  # rules:
+  #   - when  : always

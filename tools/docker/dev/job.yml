@@ -1,0 +1,16 @@
+build:
+  variables:
+    IMAGE_TAG : $DEV_IMAGE
+    DIRECTORY : tools/docker/dev
+    DOCKERFILE: $DIRECTORY/Dockerfile
+  stage   : .pre
+  image   :  docker:24.0.5
+  services: [docker:24.0.5-dind]
+  script  :
+    - echo "$CI_REGISTRY_PASSWORD" | docker login $CI_REGISTRY -u $CI_REGISTRY_USER --password-stdin
+    - docker build -t $IMAGE_TAG -f $DOCKERFILE $DIRECTORY
+    - docker push $IMAGE_TAG
+  rules:
+    - if     : $CI_COMMIT_BRANCH == $CI_DEFAULT_BRANCH
+      changes: [ $DIRECTORY/**/* ]
+    - when   : never

@@ -1,0 +1,12 @@
+# yaml-language-server: $schema=https://json.schemastore.org/taskfile.json
+version : '3'
+includes:
+  clin:
+    aliases : [c]
+    taskfile: clin.yaml 
+  helm:
+    aliases : [h]
+    taskfile: helm.yaml 
+  git:
+    aliases : [g]
+    taskfile: GIT.yaml 

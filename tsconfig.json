@@ -1,0 +1,28 @@
+{
+  "compilerOptions": {
+    "paths": {
+      "@/*": [
+        "tools/piplines/validation/scripts/*"
+      ]
+    },
+    "baseUrl": ".",
+    "noEmit": true,
+    "skipLibCheck": true,
+    "target": "ESNext",
+    "esModuleInterop": true,
+    "moduleResolution": "nodenext",
+    //for dynamic import
+    "module": "nodenext",
+    "allowJs": true,
+    "strict": true,
+    "strictPropertyInitialization": false,
+  },
+  "include": [
+    "tools/**/*.ts",
+  ],
+  "exclude": [
+    "node_modules",
+    "build",
+    ".temp",
+  ]
+}
