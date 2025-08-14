@@ -6,6 +6,9 @@ includes:
   tasks:
     taskfile: tools/tasks 
     flatten : true
+  pipelines:
+    taskfile: tools/piplines
+    flatten : true
 
 tasks:
   default: 
